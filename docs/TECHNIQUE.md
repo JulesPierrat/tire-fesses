@@ -52,8 +52,11 @@ Les premiers réglages viennent de la planche :
 | Fenêtre de mesure de la pente | 24 px, soit 144 m |
 | Seuils de couleur (`SEUILS`) | 25 %, 40 %, 60 % |
 | Avalanches | 60 % et plus |
-| Jours par saison | 20 |
-| Nuits dans le rouge avant la faillite | 3 |
+| Remontée d'une piste, au plus | 10 m |
+| Dénivelé d'une remontée, au moins | 10 m |
+| Longueur d'une remontée, au plus | téléski 1 km, télésiège 2 km, télécabine 4 km |
+| Jours par saison (étape 3) | 20 |
+| Nuits dans le rouge avant la faillite (étape 3) | 3 |
 
 ## Le temps
 
@@ -84,13 +87,17 @@ Les premiers réglages viennent de la planche :
   floue. La taille exacte vient de `devicePixelContentBoxSize` quand le
   navigateur la donne et qu'elle colle à `devicePixelRatio` (les écrans
   simulés la donnent fausse), sinon du calcul.
-- Un test dans le navigateur le vérifie sur une capture : chaque pixel du jeu
-  fait exactement e × e vrais pixels, sur ordinateur, sur Retina et sur
-  téléphone.
+- La toile elle-même est marquée sans lissage (`image-rendering: pixelated`) :
+  si le navigateur l'étire d'une fraction de pixel, aucune couleur ne se
+  mélange.
+- Un test dans le navigateur le vérifie : ce que montre une capture de l'écran
+  est, pixel pour pixel, ce que le jeu a dessiné, sur ordinateur, sur Retina et
+  sur téléphone.
 - Le reste de la fenêtre est rempli à la couleur `encre` de la phase.
-- **L'interface** (bandeau, boutons, bulles) est en HTML, posée par-dessus la
-  carte, à la taille de l'écran : 24 px pour les titres, 16 px pour le texte,
-  comme le dit la charte. Elle n'est pas agrandie avec la carte.
+- **L'interface** est un panneau en HTML, en haut à gauche, à la taille de
+  l'écran : 24 px pour les titres, 16 px pour le texte, comme le dit la
+  charte. Elle n'est pas agrandie avec la carte. Sur un téléphone couché, le
+  panneau tient dans la bande libre à gauche de la carte.
 - **Les cartes plus grandes** que l'écran défilent sous une fenêtre de
   720 × 450. Le zoom change lui aussi d'un nombre entier.
 
@@ -107,9 +114,22 @@ Les premiers réglages viennent de la planche :
 
 ## Les cartes
 
-Une carte est un fichier de données dans `src/cartes/` : son relief, ses nœuds
-fixes (stations, sommets, points de vue) et ses emplacements à construire. Le
-format exact sera fixé à l'étape 1, avec les Chocards.
+Une carte est un fichier de données dans `src/cartes/`, de la forme décrite
+dans `src/logique/carte.ts` :
+
+- **son relief**, décrit par quelques nombres plutôt que par une image : une
+  pente générale du haut vers le bas, des bosses (les sommets), des combes, du
+  bruit et le replat du village. C'est la formule de la planche ;
+- **la route du village**, en bas ;
+- **ses nœuds fixes** : les stations (la première est le départ du réseau),
+  les sommets, les points de vue ;
+- **ses emplacements à construire**, où l'on ouvre restaurants, cafés et
+  activités.
+
+Les Chocards reprennent le domaine d'essai de la planche, sans ses pistes ni ses
+remontées. Un test le vérifie : les dix tronçons de la planche y retrouvent les
+couleurs de la charte (un noir à 65 %, un rouge à 59 %, quatre bleus, quatre
+verts).
 
 ## La sauvegarde
 
@@ -150,9 +170,9 @@ Tout passe par le script `./outils`, qui lance Docker :
 Chaque étape est une pull request avec des captures. On ne fusionne qu'après
 validation.
 
-0. **Le squelette** : les outils, les tests, la mise en ligne, et une page
+0. **Le squelette** (fait) : les outils, les tests, la mise en ligne, et une page
    vide aux bonnes couleurs, qui passe du jour à la nuit.
-1. **Les Chocards, sans skieurs** : le relief, la station, les lieux. On trace
+1. **Les Chocards, sans skieurs** (fait) : le relief, la station, les lieux. On trace
    une piste et elle prend sa couleur, on pose une remontée, on passe du jour à
    la nuit.
 2. **Les skieurs** : ils arrivent, font la queue, montent, descendent et vont

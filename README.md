@@ -13,13 +13,22 @@ Jouable dans le navigateur, seul, sur plusieurs cartes de plus en plus
 
 ## Où en est le projet
 
-Le jeu n'existe pas encore : on fixe d'abord son apparence et ses règles.
+Le jeu se construit par étapes ([`docs/TECHNIQUE.md`](docs/TECHNIQUE.md)). Sur
+les Chocards, on trace déjà des pistes qui prennent leur couleur, on pose des
+remontées et on ouvre des lieux ; les skieurs arrivent à l'étape 2.
+
+Pour y jouer sur sa machine, avec Docker : `./outils lancer`, puis
+http://localhost:5173.
 
 - [x] Le nom
 - [x] La charte graphique : [`docs/CHARTE.md`](docs/CHARTE.md)
 - [x] La doc « Comment jouer » : [`docs/COMMENT_JOUER.md`](docs/COMMENT_JOUER.md)
 - [x] Les choix techniques : [`docs/TECHNIQUE.md`](docs/TECHNIQUE.md)
-- [ ] Le développement
+- [x] Étape 0 : le squelette
+- [x] Étape 1 : les Chocards, sans skieurs
+- [ ] Étape 2 : les skieurs
+- [ ] Étape 3 : l'argent et la nuit
+- [ ] Étape 4 : les Deux Vallées et le Grand Domaine
 
 ## Licence
 

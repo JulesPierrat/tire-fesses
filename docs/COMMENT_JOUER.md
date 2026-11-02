@@ -46,15 +46,17 @@ l'est pas, personne n'y va.
 ### Les liens
 
 - **Une remontée** monte d'un nœud vers un nœud plus haut, en ligne droite.
+  Elle passe au-dessus des pistes ; un téléski peut même les croiser au sol.
 - **Une piste** descend d'un nœud vers un nœud plus bas, en suivant le tracé
-  que vous dessinez.
+  que vous dessinez. Elle ne remonte jamais de plus de 10 m : un petit replat
+  passe, une vraie bosse non, et le tracé s'affiche alors en orange.
 
 Il y a trois remontées :
 
 | | Téléski (tire-fesses) | Télésiège | Télécabine |
 |---|---|---|---|
 | Débit | faible | moyen | fort |
-| Longueur | courte | moyenne | longue |
+| Longueur | 1 km au plus | 2 km au plus | 4 km au plus |
 | Prix | bas | moyen | élevé |
 | Entretien la nuit | faible | moyen | élevé |
 
@@ -136,10 +138,10 @@ et frais des lieux.
 
 | Pour… | Faites… | Prix |
 |---|---|---|
-| Tracer une piste | glisser d'un nœud jusqu'à un nœud plus bas ; une intersection se crée là où elle croise une autre piste | selon la longueur |
-| Poser une remontée | toucher le nœud du bas, puis celui du haut, puis choisir le type | selon la longueur et le type |
-| Ouvrir un lieu | choisir le lieu, puis un emplacement libre | selon le lieu |
-| Démolir | choisir le lien ou le lieu, puis « Démolir » | rend une partie du prix |
+| Tracer une piste | glisser d'un nœud, ou d'une piste, jusqu'à un nœud plus bas ou une autre piste ; une intersection se crée là où elle part d'une piste, en rejoint une ou en croise une | selon la longueur |
+| Poser une remontée | toucher un nœud, puis l'autre, dans n'importe quel ordre (elle monte toujours), puis choisir le type | selon la longueur et le type |
+| Ouvrir un lieu | toucher un emplacement libre, puis choisir le lieu | selon le lieu |
+| Démolir | toucher le lien ou le lieu, puis « Démolir » ; un lieu part avec ses pistes et ses remontées | rend une partie du prix |
 
 ## Une saison, des cartes
 
@@ -159,7 +161,7 @@ Les cartes s'enchaînent :
 |---|---|---|
 | Tracer une piste | cliquer et glisser | glisser |
 | Poser une remontée | cliquer, cliquer | toucher, toucher |
-| Voir un nœud ou un lien | survoler | appui long |
+| Voir un nœud ou un lien | survoler, ou cliquer | toucher |
 | Déplacer la carte | glisser avec le clic droit, ou les flèches | glisser à deux doigts |
 | Zoomer | molette | pincer |
 | Pause, accélérer | espace, touche + | boutons de l'écran |

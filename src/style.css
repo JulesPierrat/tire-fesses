@@ -18,45 +18,74 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* La toile couvre toute la fenêtre ; main.ts y pose la carte agrandie, sur un pixel entier. */
-#ecran { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+/* La toile couvre toute la fenêtre ; main.ts y pose la carte agrandie, sur un pixel entier.
+   Sans lissage : si le navigateur l'étire d'un rien (2,625 vrais pixels par point), aucune
+   couleur ne se mélange. */
+#ecran {
+  image-rendering: pixelated;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  user-select: none;
+}
 
-/* L'interface est posée sur la carte, à la taille de l'écran : elle n'est pas agrandie. */
-#interface { position: absolute; pointer-events: none; overflow: hidden; }
-
-.bandeau {
-  pointer-events: auto;
+/* Le panneau, à gauche, à la taille de l'écran : il n'est pas agrandi avec la carte.
+   Sur un téléphone couché, il tient dans la bande libre à gauche de la carte. */
+#panneau {
+  position: fixed;
+  top: max(8px, env(safe-area-inset-top));
+  left: max(8px, env(safe-area-inset-left));
+  width: 160px;
+  max-height: calc(100% - 16px);
+  overflow: hidden auto;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 16px;
-  width: max-content;
-  max-width: calc(100% - 16px);
-  margin: 8px;
-  padding: 6px 10px;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
   background: var(--neige-0);
   border: 2px solid var(--encre);
   box-shadow: 2px 2px 0 var(--encre);
 }
 
-h1 { margin: 0; font-size: 24px; font-weight: 700; }
+#panneau header { display: flex; flex-direction: column; gap: 6px; }
 
-.bandeau p { margin: 0; }
+h1 { margin: 0; font-size: 24px; font-weight: 700; line-height: 1.1; }
 
-.boutons { display: flex; gap: 8px; }
+#message p { margin: 0; }
+#message-titre { font-weight: 700; }
+
+.boutons { display: flex; gap: 6px; }
+
+.actions { display: flex; flex-direction: column; gap: 4px; }
+.actions .bouton { padding: 2px 6px; }
+.actions:empty { display: none; }
 
 .bouton {
   font: inherit;
   color: var(--encre);
   background: var(--neige-0);
   border: 2px solid var(--encre);
-  padding: 4px 9px;
+  padding: 4px 8px;
   box-shadow: 2px 2px 0 var(--encre);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-align: left;
 }
+.bouton small { display: block; font-size: inherit; opacity: 0.72; }
 .bouton[aria-pressed="true"] { background: var(--lumiere); }
-.bouton:active { transform: translate(2px, 2px); box-shadow: none; }
+.bouton:active:not(:disabled) { transform: translate(2px, 2px); box-shadow: none; }
 .bouton:focus-visible { outline: 2px dashed var(--encre); outline-offset: 2px; }
+.bouton:disabled { cursor: not-allowed; opacity: 0.45; box-shadow: none; }
+
+.picto { width: 22px; height: 22px; flex: none; image-rendering: pixelated; }
+
+.bouton[hidden] { display: none; }
+.discret { justify-content: center; background: transparent; box-shadow: none; border-style: dashed; }
 
 /* Téléphone tenu debout : une case ferait 8 points, trop petit pour le doigt. */
 #tourne {
