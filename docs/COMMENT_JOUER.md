@@ -37,6 +37,9 @@ neige damée.
   emplacements prévus. Ils rapportent de l'argent le jour et coûtent un peu
   chaque nuit.
 
+- **Les intersections** naissent là où une piste en croise ou en rejoint une
+  autre. Ce sont des nœuds de passage : on n'y va pas, on y change de piste.
+
 Un nœud entouré de pointillés n'est pas encore relié au réseau. Tant qu'il ne
 l'est pas, personne n'y va.
 
@@ -44,8 +47,7 @@ l'est pas, personne n'y va.
 
 - **Une remontée** monte d'un nœud vers un nœud plus haut, en ligne droite.
 - **Une piste** descend d'un nœud vers un nœud plus bas, en suivant le tracé
-  que vous dessinez. Sa couleur vient de sa pente la plus forte : verte, bleue,
-  rouge ou noire.
+  que vous dessinez.
 
 Il y a trois remontées :
 
@@ -55,7 +57,24 @@ Il y a trois remontées :
 | Longueur | courte | moyenne | longue |
 | Prix | bas | moyen | élevé |
 | Entretien la nuit | faible | moyen | élevé |
-| Particularité | les skieurs restent au sol : il lui faut une pente dégagée, sans forêt ni rochers | s'arrête quand le vent souffle fort | marche par tous les temps et redescend les skieurs qui n'ont pas le niveau de la piste |
+
+### La couleur d'une piste
+
+Seule la pente compte. Une piste est coupée en **tronçons** par les
+intersections : un tronçon va d'un nœud ou d'une intersection au suivant, sans
+croisement entre les deux. Chaque tronçon a une seule couleur sur toute sa
+longueur, celle de son passage le plus raide :
+
+| Pente la plus forte du tronçon | Couleur |
+|---|---|
+| moins de 25 % | verte |
+| de 25 à 40 % | bleue |
+| de 40 à 60 % | rouge |
+| 60 % et plus | noire |
+
+Un seul passage raide suffit donc à rendre tout un tronçon rouge ou noir. Pour
+garder une descente facile, il faut la faire passer à côté, ou créer une
+intersection avant le passage raide pour offrir un autre chemin.
 
 ## Le jour : faire circuler les skieurs
 
@@ -64,8 +83,8 @@ Le jour, le temps passe. Vous regardez les flux et vous corrigez.
 **Les skieurs.** Le matin, des skieurs arrivent dans chaque station ; leur
 nombre dépend de la popularité. Chacun a un **niveau** et une **envie** :
 
-- un débutant ne descend que les vertes, un skieur confirmé va jusqu'aux
-  rouges, un expert descend tout ;
+- un débutant ne descend que les tronçons verts, un skieur confirmé va
+  jusqu'aux rouges, un expert descend tout ;
 - l'envie est un lieu à rejoindre : un sommet, un point de vue, un restaurant,
   une activité.
 
@@ -89,8 +108,8 @@ vient de skieurs le lendemain.
 **L'argent du jour** vient des forfaits vendus le matin, un par skieur, et de
 ce que les skieurs dépensent dans les lieux : repas, cafés, activités.
 
-Pendant le jour, vous pouvez mettre en pause, accélérer, fermer ou rouvrir une
-piste ou une remontée, et régler le débit d'une remontée.
+Pendant le jour, vous pouvez mettre en pause, accélérer, fermer ou rouvrir un
+tronçon ou une remontée.
 
 ## La nuit : préparer le domaine
 
@@ -105,12 +124,10 @@ préparez le lendemain.
 - **Entretenir.** Chaque remontée s'use avec les passages. Une remontée usée
   risque de tomber en panne en plein jour. Une révision coûte, une panne coûte
   plus.
-- **Les avalanches.** Après une chute de neige, les pentes raides ont un
-  risque d'avalanche de 1 à 5, hachuré en orange sur la carte. Vous pouvez
-  déclencher l'avalanche vous-même (ça coûte), fermer les pistes concernées,
-  ou prendre le risque : une avalanche ferme la piste plusieurs jours.
-- **La météo.** Chaque nuit annonce le temps du lendemain : neige, soleil ou
-  vent.
+- **Les avalanches.** Les pentes de 60 % et plus sont hachurées en orange :
+  elles peuvent partir. Chaque nuit, vous pouvez y déclencher l'avalanche
+  vous-même (ça coûte), fermer les tronçons qui les traversent, ou prendre le
+  risque : une avalanche ferme le tronçon plusieurs jours.
 
 Au matin, la facture de la nuit tombe : dameuses, entretien, déclenchements
 et frais des lieux.
@@ -119,7 +136,7 @@ et frais des lieux.
 
 | Pour… | Faites… | Prix |
 |---|---|---|
-| Tracer une piste | glisser d'un nœud jusqu'à un nœud plus bas | selon la longueur et les arbres à abattre |
+| Tracer une piste | glisser d'un nœud jusqu'à un nœud plus bas ; une intersection se crée là où elle croise une autre piste | selon la longueur |
 | Poser une remontée | toucher le nœud du bas, puis celui du haut, puis choisir le type | selon la longueur et le type |
 | Ouvrir un lieu | choisir le lieu, puis un emplacement libre | selon le lieu |
 | Démolir | choisir le lien ou le lieu, puis « Démolir » | rend une partie du prix |
