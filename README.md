@@ -17,7 +17,8 @@ Le jeu n'existe pas encore : on fixe d'abord son apparence et ses règles.
 
 - [x] Le nom
 - [x] La charte graphique : [`docs/CHARTE.md`](docs/CHARTE.md)
-- [ ] La doc « Comment jouer »
+- [x] La doc « Comment jouer » : [`docs/COMMENT_JOUER.md`](docs/COMMENT_JOUER.md)
+- [x] Les choix techniques : [`docs/TECHNIQUE.md`](docs/TECHNIQUE.md)
 - [ ] Le développement
 
 ## Licence
