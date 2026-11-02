@@ -1,11 +1,15 @@
 # Tire-Fesses
 
-Un jeu web en pixel art : on construit et on gère une petite station de ski.
-On trace les pistes, on pose les remontées (téléski, télésiège, télécabine),
-on ouvre des restaurants, des cafés, des points de vue et des activités.
-Jouable dans le navigateur.
+Un jeu web en pixel art de nœuds, de flux et d'organisation : on relie les
+stations et les lieux d'un domaine skiable par des remontées qui montent et des
+pistes qui descendent. Le jour, on fait circuler les skieurs sans bouchons pour
+gagner en popularité et remplir la caisse. La nuit, on paie l'entretien, les
+dameuses et la sécurité contre les avalanches.
 
-![La station d'essai de la charte graphique](docs/charte/banc.png)
+Jouable dans le navigateur, seul, sur plusieurs cartes de plus en plus
+étendues.
+
+![Le domaine d'essai de la charte graphique, de jour](docs/charte/banc-jour.png)
 
 ## Où en est le projet
 

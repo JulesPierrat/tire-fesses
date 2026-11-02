@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap">
 <style>
-/* Planche de charte : la station d'essai et sa légende en tête, puis les remontées, la station et les lieux, la palette, la police et les règles. */
+/* Planche de charte : le domaine d'essai (jour et nuit) sur toute la largeur de l'écran avec sa légende, puis le graphe, les nœuds, les remontées, le jour et la nuit, la police et les règles. */
 :root{
   --bg:#edf1f5; --surface:#ffffff; --fg:#17202e; --muted:#536073; --line:#d0d8e1; --chip:#e3e9f0; --shadow:#c6d3e1;
   --f-body:"Segoe UI",Selawik,system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
@@ -20,7 +20,9 @@
 
 *,*::before,*::after{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font:16px/1.55 var(--f-body);-webkit-font-smoothing:antialiased}
-.wrap{max-width:1120px;margin:0 auto;padding-inline:20px;padding-block:36px 80px;display:grid;gap:64px}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px;display:grid;gap:64px}
+.wrap.top{padding-block:36px 32px}
+.wrap.bottom{padding-block:56px 80px}
 h1,h2,h3{margin:0;text-wrap:balance}
 p{margin:0}
 .px{image-rendering:crisp-edges;image-rendering:pixelated;display:block}
@@ -29,67 +31,63 @@ p{margin:0}
 .brand{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
 .brand canvas{width:64px;height:64px;flex:none}
 .word{font-family:var(--f-pixel);font-weight:700;font-size:clamp(36px,8vw,72px);line-height:1;letter-spacing:.01em;text-shadow:4px 4px 0 var(--shadow)}
-.lede{font-size:18px;color:var(--muted);max-width:64ch}
-.lede strong{color:var(--fg);font-weight:600}
+.lede{font-size:18px;color:var(--muted);max-width:66ch}
 h2{font-size:24px;font-weight:700;letter-spacing:-.01em}
 
-.bench{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:28px;align-items:start}
-@media (max-width:900px){.bench{grid-template-columns:minmax(0,1fr)}}
-.bench-main{min-width:0;display:grid;gap:12px}
+.bench{padding-inline:16px;display:grid;grid-template-columns:minmax(0,1fr);gap:14px;justify-items:center}
+.bench > *{max-width:1600px}
+.bench-head{width:100%;max-width:1120px;padding-inline:4px}
 .game{display:flex;flex-direction:column;max-width:100%;border:4px solid var(--g-ink);background:var(--g-ink);box-shadow:6px 6px 0 var(--shadow)}
 .game canvas{width:100%;height:auto}
-.hud{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 18px;padding:8px 12px;color:var(--g-snow);font-family:var(--f-pixel);font-size:16px;line-height:1.25;font-variant-numeric:tabular-nums}
-.hud i{font-style:normal;opacity:.72;font-size:14px;margin-right:4px}
+.hud{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 20px;padding:8px 12px;color:var(--g-snow);font-family:var(--f-pixel);font-size:16px;line-height:1.25;font-variant-numeric:tabular-nums}
+.hud i{font-style:normal;opacity:.72;font-size:14px;margin-right:5px}
 .hud b{font-weight:400}
-.hud .cash{margin-left:auto}
+.hud span:last-child{margin-left:auto}
 .tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:8px 10px;background:var(--g-snow1);color:var(--g-ink);font-family:var(--f-pixel);font-size:14px;line-height:1.25}
 .tool{font:inherit;color:var(--g-ink);background:var(--g-snow);border:2px solid var(--g-ink);padding:4px 9px;box-shadow:2px 2px 0 var(--g-ink);cursor:pointer}
-.tool.on{background:var(--g-light)}
+.tool[aria-pressed="true"]{background:var(--g-light)}
 .tool:active{transform:translate(2px,2px);box-shadow:none}
 .tool:focus-visible{outline:2px dashed var(--g-ink);outline-offset:2px}
+.sep{width:2px;align-self:stretch;background:var(--g-ink);opacity:.25;margin-inline:4px}
 .tip{margin-left:auto}
-.note{color:var(--muted);font-size:14px;max-width:72ch}
+.note{color:var(--muted);font-size:14px;max-width:1120px;width:100%;padding-inline:4px}
 
-.legend{display:grid;gap:16px;align-content:start}
-.legend h2{font-size:20px}
-.lg{display:grid;gap:6px}
+.legend{width:100%;max-width:1120px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px 28px;background:var(--surface);border:1px solid var(--line);padding:18px 20px}
+.lg{display:grid;gap:6px;align-content:start}
 .lg h3{font-size:13px;font-weight:600;color:var(--muted)}
 .lg ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 .lg li{display:flex;align-items:center;gap:10px;font-size:15px}
 .lg canvas{width:33px;height:33px;flex:none}
 .lg .shape{width:33px;height:33px;display:grid;place-items:center;flex:none}
 .lg .shape canvas{width:21px;height:21px}
-.lg-pistes{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px}
+.lg .wide-ico canvas{width:44px;height:22px}
 
 .sec{display:grid;gap:24px}
-.sec-head{display:grid;gap:6px;max-width:70ch}
+.sec-head{display:grid;gap:6px;max-width:72ch}
 .sec-head p{color:var(--muted)}
+.points{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.point{background:var(--surface);border:1px solid var(--line);padding:16px 18px;display:grid;gap:6px;align-content:start}
+.point h3{font-size:16px}
+.point p{color:var(--muted);font-size:15px}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
-.cards.small{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.cards.small{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
 .card{background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;min-width:0}
 .plate{background:var(--g-snow1);border-bottom:1px solid var(--line);display:grid;place-items:center;padding:14px}
 .plate canvas{max-width:100%;height:auto}
-.card-body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
-.card h3,.wide-card h3{display:flex;align-items:center;gap:10px;font-size:18px}
-.card h3 canvas,.wide-card h3 canvas{width:33px;height:33px;flex:none}
+.card-body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card h3{display:flex;align-items:center;gap:10px;font-size:17px}
+.card h3 canvas{width:33px;height:33px;flex:none}
 .card-body > p{color:var(--muted);font-size:15px}
 .cat{font-size:12px;font-weight:600;color:var(--muted)}
 .specs{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14px}
 .specs dt{color:var(--muted)}
 .specs dd{margin:0}
-.wide-card{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);background:var(--surface);border:1px solid var(--line)}
-.wide-card .plate{border-bottom:0;border-right:1px solid var(--line)}
-@media (max-width:640px){.wide-card{grid-template-columns:minmax(0,1fr)}.wide-card .plate{border-right:0;border-bottom:1px solid var(--line)}}
 
-.cats{display:flex;flex-wrap:wrap;gap:10px 22px;font-size:14px}
-.cats span{display:inline-flex;align-items:center;gap:8px}
-.cats i{width:14px;height:14px;display:inline-block;outline:1px solid var(--line)}
-
-.pal{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px 18px}
-.pal div{display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:10px;font-size:14px;padding-block:2px}
-.pal span{width:28px;height:28px;outline:1px solid var(--line)}
-.pal code{font-size:12px;color:var(--muted);font-family:ui-monospace,"Cascadia Code",Consolas,monospace}
-.pal small{display:block;font-size:12px;color:var(--muted)}
+.daynight{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:6px 22px}
+.daynight div{display:grid;grid-template-columns:24px 24px 1fr;align-items:center;gap:8px;font-size:14px}
+.daynight span{width:24px;height:24px;outline:1px solid var(--line)}
+.daynight small{display:block;font-size:12px;color:var(--muted);font-family:ui-monospace,"Cascadia Code",Consolas,monospace}
+.dn-head{display:flex;gap:8px;font-size:12px;font-weight:600;color:var(--muted)}
 
 .spec{background:var(--g-ink);color:var(--g-snow);padding:22px;display:grid;gap:12px;font-family:var(--f-pixel);overflow-wrap:anywhere}
 .spec .s-big{font-size:24px;font-weight:700;line-height:1.2;color:var(--g-light)}
@@ -108,7 +106,7 @@ h2{font-size:24px;font-weight:700;letter-spacing:-.01em}
 .pistes small{display:block;color:var(--muted);font-size:13px;font-weight:400}
 .sizes{display:flex;flex-wrap:wrap;gap:16px 24px;margin-top:6px;align-items:end}
 .sizes figure{margin:0;display:grid;gap:6px;justify-items:start}
-.sizes canvas{height:96px;width:auto;outline:1px solid var(--line)}
+.sizes canvas{outline:1px solid var(--line)}
 .sizes figcaption{font-size:13px;color:var(--muted)}
 .next{display:grid;gap:8px;max-width:70ch}
 .next p{color:var(--muted)}
@@ -116,136 +114,136 @@ h2{font-size:24px;font-weight:700;letter-spacing:-.01em}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap top">
   <header class="mast">
     <div class="brand">
       <canvas id="icon" class="px" width="16" height="16" role="img" aria-label="Icône : la perche d'un téléski au-dessus de la neige"></canvas>
       <h1 class="word">TIRE-FESSES</h1>
     </div>
-    <p class="lede">Charte graphique du jeu. Arrêté : <strong>vue de dessus</strong>, palette <strong>Grand beau</strong>, police <strong>Pixelify Sans</strong>. À valider sur cette version : les trois remontées, la station et les lieux.</p>
+    <p class="lede">Charte graphique. Un domaine skiable est un graphe : des nœuds (les stations, les lieux, les intersections) reliés par des remontées qui montent et des pistes qui descendent. Le jour, on fait circuler les skieurs ; la nuit, on entretient le domaine.</p>
   </header>
+</div>
 
-  <section class="bench" id="banc" aria-labelledby="banc-t">
-    <div class="bench-main" id="benchMain">
-      <h2 id="banc-t">Banc d'essai</h2>
-      <div class="game" id="game">
-        <div class="hud" aria-hidden="true">
-          <span><i>Jour</i><b id="hDay">12</b></span>
-          <span><b id="hTime">09:40</b></span>
-          <span><i>Neige</i><b>85 cm</b></span>
-          <span><i>Skieurs</i><b id="hSk">214</b></span>
-          <span class="cash"><i>Caisse</i><b id="hCash">38 520 €</b></span>
-        </div>
-        <canvas id="stage" class="px" width="240" height="150" role="img" aria-label="Station d'essai animée : téléski, télésiège, télécabine, quatre pistes, la station et ses lieux"></canvas>
-        <div class="tools">
-          <button type="button" class="tool on" aria-pressed="true" data-tip="Tracer : glisser du haut vers le bas">Piste</button>
-          <button type="button" class="tool" aria-pressed="false" data-tip="Téléski, télésiège ou télécabine">Remontée</button>
-          <button type="button" class="tool" aria-pressed="false" data-tip="Restaurant, café, point de vue…">Lieu</button>
-          <button type="button" class="tool" aria-pressed="false" data-tip="Damer cette nuit · 4 pistes">Dameuse</button>
-          <span class="tip" id="tip">Tracer : glisser du haut vers le bas</span>
-        </div>
-      </div>
-      <p class="note">La station d'essai : un téléski, un télésiège, une télécabine, quatre pistes, la station au pied du domaine et dix lieux. Le décor est généré pour juger l'ensemble ; les dessins définitifs viendront ensuite.</p>
+<section class="bench" id="banc" aria-labelledby="banc-t">
+  <div class="bench-head"><h2 id="banc-t">Banc d'essai</h2></div>
+  <div class="game" id="game">
+    <div class="hud" id="hud"></div>
+    <canvas id="stage" class="px" width="720" height="450" role="img" aria-label="Domaine d'essai animé : deux stations, sept lieux, deux intersections, trois remontées et dix tronçons de piste"></canvas>
+    <div class="tools">
+      <button type="button" class="tool" data-phase="jour" aria-pressed="true">Jour</button>
+      <button type="button" class="tool" data-phase="nuit" aria-pressed="false">Nuit</button>
+      <span class="sep" aria-hidden="true"></span>
+      <span id="toolset" style="display:contents"></span>
+      <span class="tip" id="tip"></span>
     </div>
+  </div>
+  <p class="note">Le domaine d'essai : la station des Chocards reliée à six lieux par une télécabine, un télésiège, un téléski et dix tronçons de piste. Chaque tronçon a pris sa couleur d'après sa pente la plus forte ; les deux intersections portent un poteau aux couleurs des pistes qui en partent. La station du Val et le départ de parapente, en pointillés, attendent d'être reliés. Le décor est généré pour juger l'ensemble ; les dessins définitifs viendront ensuite.</p>
+  <div class="legend" aria-label="Légende">
+    <div class="lg"><h3>Pistes</h3><ul id="lgPistes"></ul></div>
+    <div class="lg"><h3>Remontées</h3><ul>
+      <li><canvas class="px" width="11" height="11" data-picto="teleski" aria-hidden="true"></canvas>Téléski (tire-fesses)</li>
+      <li><canvas class="px" width="11" height="11" data-picto="telesiege" aria-hidden="true"></canvas>Télésiège</li>
+      <li><canvas class="px" width="11" height="11" data-picto="telecabine" aria-hidden="true"></canvas>Télécabine</li>
+    </ul></div>
+    <div class="lg"><h3>Nœuds</h3><ul>
+      <li><canvas class="px" width="11" height="11" data-picto="station" aria-hidden="true"></canvas>Station</li>
+      <li><canvas class="px" width="11" height="11" data-picto="restaurant" aria-hidden="true"></canvas>Restaurant d'altitude</li>
+      <li><canvas class="px" width="11" height="11" data-picto="cafe" aria-hidden="true"></canvas>Café</li>
+      <li><canvas class="px" width="11" height="11" data-picto="sommet" aria-hidden="true"></canvas>Sommet</li>
+      <li><canvas class="px" width="11" height="11" data-picto="vue" aria-hidden="true"></canvas>Point de vue</li>
+      <li class="wide-ico"><canvas class="px" width="22" height="11" id="lgJunction" aria-hidden="true"></canvas>Intersection</li>
+    </ul></div>
+    <div class="lg"><h3>Activités</h3><ul>
+      <li><canvas class="px" width="11" height="11" data-picto="luge" aria-hidden="true"></canvas>Luge</li>
+      <li><canvas class="px" width="11" height="11" data-picto="snowpark" aria-hidden="true"></canvas>Snowpark</li>
+      <li><canvas class="px" width="11" height="11" data-picto="parapente" aria-hidden="true"></canvas>Parapente</li>
+    </ul></div>
+    <div class="lg"><h3>Signaux</h3><ul>
+      <li><canvas class="px" width="11" height="11" data-picto="bouchon" aria-hidden="true"></canvas>Bouchon (jour)</li>
+      <li><span class="shape"><canvas class="px" width="9" height="8" id="lgHeart" aria-hidden="true"></canvas></span>Skieur content (jour)</li>
+      <li><canvas class="px" width="11" height="11" data-picto="avalanche" aria-hidden="true"></canvas>Risque d'avalanche (nuit)</li>
+      <li><canvas class="px" width="11" height="11" data-picto="entretien" aria-hidden="true"></canvas>Entretien (nuit)</li>
+      <li class="wide-ico"><canvas class="px" width="22" height="11" id="lgRing" aria-hidden="true"></canvas>Pas encore relié</li>
+    </ul></div>
+  </div>
+</section>
 
-    <aside class="legend" aria-labelledby="leg-t">
-      <h2 id="leg-t">Légende</h2>
-      <div class="lg"><h3>Pistes</h3><ul class="lg-pistes" id="lgPistes"></ul></div>
-      <div class="lg"><h3>Remontées</h3><ul>
-        <li><canvas class="px" width="11" height="11" data-picto="teleski" aria-hidden="true"></canvas>Téléski (tire-fesses)</li>
-        <li><canvas class="px" width="11" height="11" data-picto="telesiege" aria-hidden="true"></canvas>Télésiège</li>
-        <li><canvas class="px" width="11" height="11" data-picto="telecabine" aria-hidden="true"></canvas>Télécabine</li>
-      </ul></div>
-      <div class="lg"><h3>Station</h3><ul>
-        <li><canvas class="px" width="11" height="11" data-picto="station" aria-hidden="true"></canvas>Station</li>
-      </ul></div>
-      <div class="lg"><h3>Restauration</h3><ul>
-        <li><canvas class="px" width="11" height="11" data-picto="restaurant" aria-hidden="true"></canvas>Restaurant d'altitude</li>
-        <li><canvas class="px" width="11" height="11" data-picto="cafe" aria-hidden="true"></canvas>Café</li>
-      </ul></div>
-      <div class="lg"><h3>Nature</h3><ul>
-        <li><canvas class="px" width="11" height="11" data-picto="sommet" aria-hidden="true"></canvas>Sommet</li>
-        <li><canvas class="px" width="11" height="11" data-picto="vue" aria-hidden="true"></canvas>Point de vue</li>
-      </ul></div>
-      <div class="lg"><h3>Activités</h3><ul>
-        <li><canvas class="px" width="11" height="11" data-picto="luge" aria-hidden="true"></canvas>Luge</li>
-        <li><canvas class="px" width="11" height="11" data-picto="raquettes" aria-hidden="true"></canvas>Raquettes</li>
-        <li><canvas class="px" width="11" height="11" data-picto="snowpark" aria-hidden="true"></canvas>Snowpark</li>
-        <li><canvas class="px" width="11" height="11" data-picto="chiens" aria-hidden="true"></canvas>Chiens de traîneau</li>
-        <li><canvas class="px" width="11" height="11" data-picto="parapente" aria-hidden="true"></canvas>Parapente</li>
-        <li><canvas class="px" width="11" height="11" data-picto="patinoire" aria-hidden="true"></canvas>Patinoire</li>
-      </ul></div>
-    </aside>
+<div class="wrap bottom">
+  <section class="sec" aria-labelledby="graphe-t">
+    <div class="sec-head">
+      <h2 id="graphe-t">Un jeu de nœuds et de flux</h2>
+      <p>Le joueur organise des flux de skieurs entre des points. Le dessin doit rendre ce graphe lisible au premier regard.</p>
+    </div>
+    <div class="points">
+      <div class="point"><h3>Un nœud, un point</h3><p>Une station est un seul nœud, quelle que soit sa taille. Un lieu aussi. Chaque nœud est posé sur une plateforme de neige damée : c'est là qu'on accroche les liens.</p></div>
+      <div class="point"><h3>Deux sortes de liens</h3><p>Les remontées montent d'un nœud à un autre. Les pistes descendent. Rien ne se pose au milieu de nulle part.</p></div>
+      <div class="point"><h3>Les intersections</h3><p>Là où des pistes se séparent ou se rejoignent, il y a une intersection : un petit rond damé et un poteau dont les plaques ont la couleur des pistes qui en partent.</p></div>
+      <div class="point"><h3>Un tronçon, une couleur</h3><p>Une piste va d'un nœud ou d'une intersection au suivant, sans croisement entre les deux. Elle a une seule couleur sur toute sa longueur : celle de son passage le plus raide.</p></div>
+      <div class="point"><h3>Plusieurs stations</h3><p>Un domaine peut relier plusieurs stations. Un nœud entouré de pointillés n'est pas encore relié au réseau.</p></div>
+      <div class="point"><h3>Des cartes qui grandissent</h3><p>La carte de base tient sur un écran. Les suivantes sont plus étendues, défilent, et comptent plus de stations à relier.</p></div>
+    </div>
   </section>
 
-  <section class="sec" id="remontees" aria-labelledby="rem-t">
+  <section class="sec" aria-labelledby="noeuds-t">
+    <div class="sec-head">
+      <h2 id="noeuds-t">Les nœuds</h2>
+      <p>Sur la carte, chaque nœud est dessiné sur sa plateforme. Dans l'interface, il est représenté par son pictogramme : une pastille de 11 × 11 dont la couleur dit la famille. Aucune famille n'emprunte une couleur de piste.</p>
+    </div>
+    <div class="cards small" id="nodeCards"></div>
+  </section>
+
+  <section class="sec" aria-labelledby="rem-t">
     <div class="sec-head">
       <h2 id="rem-t">Les trois remontées</h2>
-      <p>Le pylône suffit à reconnaître le type, même quand aucun véhicule ne passe : 7, 9 ou 11 pixels de haut, une perche, une traverse ou un treillis. Le téléski a un seul câble ; le télésiège et la télécabine en ont deux, un qui monte, un qui descend.</p>
+      <p>Une remontée part d'un nœud et arrive à un autre ; sa machinerie est une petite gare grise collée à la plateforme. Le pylône suffit à reconnaître le type : 18, 24 ou 30 pixels de haut, une perche, une traverse ou un treillis.</p>
     </div>
     <div class="cards">
       <article class="card">
-        <div class="plate"><canvas class="px" width="60" height="28" data-lift="teleski" style="width:300px" role="img" aria-label="Planche du téléski : gare, pylônes, perche et skieur"></canvas></div>
+        <div class="plate"><canvas class="px" width="124" height="46" data-lift="teleski" style="width:248px" role="img" aria-label="Planche du téléski"></canvas></div>
         <div class="card-body">
           <h3><canvas class="px" width="11" height="11" data-picto="teleski" aria-hidden="true"></canvas>Téléski (tire-fesses)</h3>
-          <p>Le skieur reste debout, skis sur la neige, tiré par une perche. Court et simple, la remontée des débutants.</p>
-          <dl class="specs"><dt>Pylône</dt><dd>7 px, petite traverse</dd><dt>Véhicule</dt><dd>perche à assiette, skieur au sol</dd><dt>Gare</dt><dd>une cabane, 7 × 6</dd><dt>Au sol</dt><dd>une trace damée sous la ligne</dd></dl>
+          <p>Le skieur reste debout, skis sur la neige, tiré par une perche.</p>
+          <dl class="specs"><dt>Pylône</dt><dd>5 × 18, un seul câble</dd><dt>Véhicule</dt><dd>perche, skieur au sol</dd><dt>Au sol</dt><dd>une trace damée sous la ligne</dd></dl>
         </div>
       </article>
       <article class="card">
-        <div class="plate"><canvas class="px" width="60" height="28" data-lift="telesiege" style="width:300px" role="img" aria-label="Planche du télésiège : gare, pylônes, sièges"></canvas></div>
+        <div class="plate"><canvas class="px" width="124" height="46" data-lift="telesiege" style="width:248px" role="img" aria-label="Planche du télésiège"></canvas></div>
         <div class="card-body">
           <h3><canvas class="px" width="11" height="11" data-picto="telesiege" aria-hidden="true"></canvas>Télésiège</h3>
-          <p>Le skieur est assis, skis dans le vide. La remontée qui mène aux sommets.</p>
-          <dl class="specs"><dt>Pylône</dt><dd>9 px, large traverse</dd><dt>Véhicule</dt><dd>siège ouvert, couleur encre</dd><dt>Gare</dt><dd>un bâtiment moyen, 10 × 8</dd><dt>Câbles</dt><dd>deux, montée et descente</dd></dl>
+          <p>Deux skieurs assis par siège, skis dans le vide.</p>
+          <dl class="specs"><dt>Pylône</dt><dd>13 × 24, large traverse</dd><dt>Véhicule</dt><dd>siège deux places, couleur encre</dd><dt>Câbles</dt><dd>deux, montée et descente</dd></dl>
         </div>
       </article>
       <article class="card">
-        <div class="plate"><canvas class="px" width="60" height="28" data-lift="telecabine" style="width:300px" role="img" aria-label="Planche de la télécabine : gare, pylônes en treillis, cabines jaunes"></canvas></div>
+        <div class="plate"><canvas class="px" width="124" height="46" data-lift="telecabine" style="width:248px" role="img" aria-label="Planche de la télécabine"></canvas></div>
         <div class="card-body">
           <h3><canvas class="px" width="11" height="11" data-picto="telecabine" aria-hidden="true"></canvas>Télécabine</h3>
-          <p>Des cabines fermées qui partent de la station. La plus longue et la plus chère des trois.</p>
-          <dl class="specs"><dt>Pylône</dt><dd>11 px, en treillis</dd><dt>Véhicule</dt><dd>cabine jaune à fenêtre, 3 × 4</dd><dt>Gare</dt><dd>un grand bâtiment, 12 × 10</dd><dt>Câbles</dt><dd>deux, montée et descente</dd></dl>
+          <p>Des cabines fermées, la plus longue et la plus chère des trois.</p>
+          <dl class="specs"><dt>Pylône</dt><dd>13 × 30, en treillis</dd><dt>Véhicule</dt><dd>cabine jaune à fenêtre, 7 × 9</dd><dt>Câbles</dt><dd>deux, montée et descente</dd></dl>
         </div>
       </article>
     </div>
   </section>
 
-  <section class="sec" id="lieux" aria-labelledby="lieux-t">
+  <section class="sec" aria-labelledby="jn-t">
     <div class="sec-head">
-      <h2 id="lieux-t">La station et les lieux</h2>
-      <p>Sur la carte, chaque lieu est dessiné. Dans l'interface (légende, bulles, menus), il est représenté par son pictogramme : une pastille de 11 × 11 dont la couleur dit la famille. Aucune famille n'emprunte une couleur de piste.</p>
-      <div class="cats" id="cats"></div>
+      <h2 id="jn-t">Le jour et la nuit</h2>
+      <p>Le jour, on regarde les flux : un bouchon au pied d'une remontée, des skieurs contents, la popularité qui monte, l'argent qui rentre. La nuit, on regarde les coûts : les dameuses, l'entretien, le risque d'avalanche sur les pentes les plus raides. La nuit ne change pas les dessins, elle change la palette : chaque couleur a sa jumelle de nuit. Seuls la lumière des fenêtres, les phares et l'orange des alertes gardent leur éclat.</p>
     </div>
-    <article class="wide-card">
-      <div class="plate"><canvas class="px" width="40" height="26" data-hub style="width:240px" role="img" aria-label="La station : deux immeubles et trois chalets"></canvas></div>
-      <div class="card-body">
-        <h3><canvas class="px" width="11" height="11" data-picto="station" aria-hidden="true"></canvas>La station</h3>
-        <p>Le cœur du domaine, au pied des pistes : un immeuble en béton, un immeuble en bois et trois chalets, fenêtres allumées. Les skieurs y arrivent le matin et en repartent le soir. Elle tient dans 30 × 20 pixels.</p>
-        <dl class="specs"><dt>Immeubles</dt><dd>7 × 14 et 7 × 11, toits plats enneigés</dd><dt>Chalets</dt><dd>9 × 8, toit enneigé, bois</dd><dt>Pictogramme</dt><dd>un immeuble et un chalet, sur fond encre</dd></dl>
-      </div>
-    </article>
-    <div class="cards small" id="poiCards"></div>
-  </section>
-
-  <section class="sec" id="palette" aria-labelledby="pal-t">
-    <div class="sec-head">
-      <h2 id="pal-t">La palette Grand beau</h2>
-      <p>32 couleurs, toutes listées ici. Une couleur absente de cette liste n'entre pas dans le jeu. Les fichiers pour Aseprite et Lospec sont dans le dépôt.</p>
-    </div>
-    <div class="pal" id="pal"></div>
+    <div class="dn-head"><span>Jour</span><span>Nuit</span></div>
+    <div class="daynight" id="daynight"></div>
   </section>
 
   <section class="sec" aria-labelledby="font-t">
     <div class="sec-head">
       <h2 id="font-t">La police</h2>
-      <p>Pixelify Sans pour tout le jeu, libre de droits (SIL Open Font License). L'interface s'affiche à la taille de l'écran ; elle n'est pas agrandie avec la carte.</p>
+      <p>Pixelify Sans pour tout le jeu, sous licence SIL Open Font License. L'interface s'affiche à la taille de l'écran ; elle n'est pas agrandie avec la carte.</p>
     </div>
     <div class="font-grid">
       <div class="spec">
         <p class="s-big">Télécabine du Plateau</p>
-        <p class="s-txt">Piste rouge · Combe du Loup · de 1 850 m à 1 420 m</p>
-        <p class="s-txt">1 284 forfaits · 38 520 € · 09:40</p>
+        <p class="s-txt">File d'attente : 14 skieurs · 6 min</p>
+        <p class="s-txt">Dameuses : 3 · Entretien : −640 € · 23:10</p>
         <p class="s-txt">Àà Ââ Çç Éé Èè Êê Îî Ôô Ùù Œœ</p>
       </div>
       <dl class="specs">
@@ -253,7 +251,7 @@ h2{font-size:24px;font-weight:700;letter-spacing:-.01em}
         <dt>Texte</dt><dd>16 px, normal (400)</dd>
         <dt>Tailles</dt><dd>ces deux-là seulement</dd>
         <dt>Chiffres</dt><dd>alignés en colonne (tabular-nums)</dd>
-        <dt>Casse</dt><dd>casse de phrase, jamais tout en capitales sauf le logo</dd>
+        <dt>Casse</dt><dd>casse de phrase ; tout en capitales seulement pour le logo</dd>
       </dl>
     </div>
   </section>
@@ -266,34 +264,35 @@ h2{font-size:24px;font-weight:700;letter-spacing:-.01em}
     <div class="rule-grid">
       <div class="rule wide">
         <h3>Les couleurs des pistes</h3>
-        <p>Elles suivent la norme française et ne servent qu'aux pistes. Chacune porte aussi un pictogramme, pour les joueurs daltoniens. Les alertes de l'interface ont leur propre couleur, l'orange des balises.</p>
+        <p>Elles suivent la norme française et ne servent qu'aux pistes. Chacune porte aussi un pictogramme, pour les joueurs daltoniens. Un tronçon est une bande damée de 10 pixels bordée de 2 pixels de sa couleur.</p>
         <ul class="pistes" id="pisteList"></ul>
       </div>
       <div class="rule wide">
         <h3>Les tailles</h3>
-        <p>Une case fait 8 × 8 pixels. L'écran agrandit toujours par un nombre entier (×2, ×3, ×4), jamais avec du lissage.</p>
+        <p>Une case fait 24 × 24 pixels. La carte de base fait 30 × 19 cases (720 × 450 pixels). L'écran agrandit toujours par un nombre entier de pixels, jamais avec du lissage.</p>
         <div class="sizes" id="sizes"></div>
       </div>
       <div class="rule"><h3>Le point de vue</h3><p>Le terrain est vu d'en haut, les objets sont vus de face : un sapin, un chalet, un pylône se lisent debout.</p></div>
       <div class="rule"><h3>La lumière</h3><p>Le soleil vient du haut à gauche. Les ombres tombent en bas à droite, sur les versants comme au pied des objets.</p></div>
-      <div class="rule"><h3>Les contours</h3><p>Pas de trait noir autour des objets. Chaque objet est bordé par la plus sombre de ses propres teintes.</p></div>
+      <div class="rule"><h3>Les contours</h3><p>Pas de trait noir autour des objets. Chaque objet est bordé par la plus sombre de ses propres teintes. Seuls les pictogrammes et les cadres de l'interface ont un bord d'encre.</p></div>
       <div class="rule"><h3>La neige</h3><p>Quatre teintes, du plein soleil à l'ombre, mêlées par une trame de points plutôt que par un dégradé.</p></div>
       <div class="rule"><h3>Le mouvement</h3><p>4 à 6 images par animation, 8 à 12 images par seconde. Un objet avance d'un pixel entier, jamais d'un demi.</p></div>
-      <div class="rule"><h3>Les noms</h3><p>Pistes, remontées et lieux portent des noms de montagne : Combe du Loup, Télécabine du Plateau, Café des Marmottes.</p></div>
+      <div class="rule"><h3>Les noms</h3><p>Stations, pistes, remontées et lieux portent des noms de montagne : les Chocards, Combe du Loup, Télécabine du Plateau.</p></div>
     </div>
   </section>
 
   <section class="next" aria-labelledby="next-t">
     <h2 id="next-t">Ensuite</h2>
-    <p>La charte écrite est dans le dépôt (<code>docs/CHARTE.md</code>), avec cette planche et la palette en fichiers. Une fois les dessins validés viennent le logo, l'icône du jeu, puis la doc « Comment jouer ».</p>
+    <p>La charte écrite est dans le dépôt (<code>docs/CHARTE.md</code>), avec cette planche et les deux palettes en fichiers. La doc « Comment jouer » est à côté (<code>docs/COMMENT_JOUER.md</code>).</p>
   </section>
 </div>
 
 <script>
 (() => {
-const W = 240, H = 150;
+const W = 720, H = 450;
 
-const PAL = {
+/* ---------- palettes : chaque couleur du jour a sa jumelle de nuit ---------- */
+const DAY = {
   snow:['#ffffff','#e4eef7','#bcd1e5','#8ea9c6'], groomed:'#f3f8fc',
   rock:['#a7a3ad','#706b78','#464150'], pine:['#4f9c62','#2f714b','#1d4a37'], trunk:'#5b3a2b',
   wood:['#b8683d','#7d4128'], roof:'#c94a32', sky:['#4fa3e3','#86c4f0','#c9e7fb'],
@@ -301,18 +300,26 @@ const PAL = {
   piste:{verte:'#23a052',bleue:'#2a67d4',rouge:'#dc3a2a',noire:'#1a1a24'},
   skin:'#f2c5a0', jackets:['#ff8a1f','#ffd23f','#e83f6f','#1fb5cc','#8b5cf6'], light:'#ffd77a', road:'#6e7383'
 };
+const NIGHT = {
+  snow:['#a7b0e0','#8790cc','#6870b2','#4d5494'], groomed:'#b6bee8',
+  rock:['#635f82','#48446a','#302d4c'], pine:['#2f5566','#21404f','#162c3a'], trunk:'#2b2236',
+  wood:['#6a4a62','#4a3249'], roof:'#7a3f5c', sky:['#0b0e2e','#1a1f52','#2c3480'],
+  ink:'#0a0c22', cable:'#161a40',
+  piste:{verte:'#34b37a',bleue:'#5a86ee',rouge:'#f05a66',noire:'#0d0d1c'},
+  skin:'#d4a593', jackets:['#ff9a3c','#f2cf55','#d0527e','#36a9c0','#8466e0'], light:'#ffd36e', road:'#363a6a'
+};
 const PISTE_KEYS = ['verte','bleue','rouge','noire'];
-const PAL_LIST = [
-  ['neige-0','Neige au soleil',PAL.snow[0]],['neige-1','Neige',PAL.snow[1]],['neige-2','Neige à l\'ombre',PAL.snow[2]],['neige-3','Ombre profonde',PAL.snow[3]],['neige-damee','Neige damée',PAL.groomed],
-  ['roche-0','Roche claire',PAL.rock[0]],['roche-1','Roche',PAL.rock[1]],['roche-2','Roche sombre',PAL.rock[2]],
-  ['sapin-0','Sapin clair',PAL.pine[0]],['sapin-1','Sapin',PAL.pine[1]],['sapin-2','Sapin sombre',PAL.pine[2]],['tronc','Tronc',PAL.trunk],
-  ['bois-0','Bois · restauration',PAL.wood[0]],['bois-1','Bois sombre',PAL.wood[1]],['toit','Toit',PAL.roof],
-  ['ciel-0','Ciel haut',PAL.sky[0]],['ciel-1','Ciel · vitres',PAL.sky[1]],['ciel-2','Ciel à l\'horizon',PAL.sky[2]],
-  ['encre','Encre · station',PAL.ink],['cable','Câble',PAL.cable],
-  ['piste-verte','Piste verte',PAL.piste.verte],['piste-bleue','Piste bleue',PAL.piste.bleue],['piste-rouge','Piste rouge',PAL.piste.rouge],['piste-noire','Piste noire',PAL.piste.noire],
-  ['peau','Peau',PAL.skin],['orange-balise','Orange balise · alertes',PAL.jackets[0]],['jaune-remontee','Jaune · remontées',PAL.jackets[1]],
-  ['framboise','Framboise',PAL.jackets[2]],['cyan','Cyan · nature',PAL.jackets[3]],['violet','Violet · activités',PAL.jackets[4]],
-  ['lumiere','Lumière',PAL.light],['route','Route',PAL.road]
+const ROLES = [
+  ['neige-0','Neige au soleil',p=>p.snow[0]],['neige-1','Neige',p=>p.snow[1]],['neige-2','Neige à l\'ombre',p=>p.snow[2]],['neige-3','Ombre profonde',p=>p.snow[3]],['neige-damee','Neige damée',p=>p.groomed],
+  ['roche-0','Roche claire',p=>p.rock[0]],['roche-1','Roche',p=>p.rock[1]],['roche-2','Roche sombre',p=>p.rock[2]],
+  ['sapin-0','Sapin clair',p=>p.pine[0]],['sapin-1','Sapin',p=>p.pine[1]],['sapin-2','Sapin sombre',p=>p.pine[2]],['tronc','Tronc',p=>p.trunk],
+  ['bois-0','Bois · restauration',p=>p.wood[0]],['bois-1','Bois sombre',p=>p.wood[1]],['toit','Toit',p=>p.roof],
+  ['ciel-0','Ciel haut',p=>p.sky[0]],['ciel-1','Ciel · vitres',p=>p.sky[1]],['ciel-2','Ciel · glace',p=>p.sky[2]],
+  ['encre','Encre · station',p=>p.ink],['cable','Câble',p=>p.cable],
+  ['piste-verte','Piste verte',p=>p.piste.verte],['piste-bleue','Piste bleue',p=>p.piste.bleue],['piste-rouge','Piste rouge',p=>p.piste.rouge],['piste-noire','Piste noire',p=>p.piste.noire],
+  ['peau','Peau',p=>p.skin],['orange-balise','Orange balise · alertes',p=>p.jackets[0]],['jaune-remontee','Jaune · remontées',p=>p.jackets[1]],
+  ['framboise','Framboise · contentement',p=>p.jackets[2]],['cyan','Cyan · nature',p=>p.jackets[3]],['violet','Violet · activités',p=>p.jackets[4]],
+  ['lumiere','Lumière',p=>p.light],['route','Route',p=>p.road]
 ];
 
 /* ---------- outils ---------- */
@@ -329,7 +336,6 @@ function vnoise(x, y) {
 function fbm(x, y) { let s = 0, a = 0.5, f = 1; for (let o = 0; o < 4; o++) { s += a * (vnoise(x * f + o * 17.3, y * f + o * 9.1) * 2 - 1); f *= 2; a *= 0.5; } return s; }
 const BAYER = [0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5].map(v => v / 16 - 0.5);
 const bay = (x, y) => BAYER[(y & 3) * 4 + (x & 3)];
-const lv = (t, x, y) => { const v = t + bay(x, y) * 0.16; return v > 0.56 ? 0 : v > 0.42 ? 1 : v > 0.28 ? 2 : 3; };
 const putG = (b, bw, bh, x, y, c) => { if (x >= 0 && y >= 0 && x < bw && y < bh) b[y * bw + x] = c; };
 function lineG(b, bw, bh, x0, y0, x1, y1, col) {
   x0 = Math.round(x0); y0 = Math.round(y0); x1 = Math.round(x1); y1 = Math.round(y1);
@@ -362,6 +368,13 @@ function withLength(path) {
   for (let k = 1; k < path.length; k++) cum.push(cum[k - 1] + Math.hypot(path[k][0] - path[k - 1][0], path[k][1] - path[k - 1][1]));
   return { path, cum, len: cum[cum.length - 1] };
 }
+function pathAt(p, d) {
+  const c = p.cum; let lo = 0, hi = c.length - 1;
+  while (lo < hi - 1) { const m = (lo + hi) >> 1; if (c[m] <= d) lo = m; else hi = m; }
+  const a = p.path[lo], b = p.path[hi], t = (d - c[lo]) / ((c[hi] - c[lo]) || 1);
+  const dx = b[0] - a[0], dy = b[1] - a[1], l = Math.hypot(dx, dy) || 1;
+  return [a[0] + dx * t, a[1] + dy * t, -dy / l, dx / l];
+}
 function segDist(px, py, a, b) {
   const vx = b[0] - a[0], vy = b[1] - a[1];
   const t = Math.max(0, Math.min(1, ((px - a[0]) * vx + (py - a[1]) * vy) / (vx * vx + vy * vy)));
@@ -380,46 +393,80 @@ function stamp(path, r, dist, id, k) {
   }
 }
 
-/* ---------- palette compilée, dessins ---------- */
-const P = {
-  snow: PAL.snow.map(c32), groomed: c32(PAL.groomed), rock: PAL.rock.map(c32), pine: PAL.pine.map(c32), trunk: c32(PAL.trunk),
-  wood: PAL.wood.map(c32), roof: c32(PAL.roof), sky: PAL.sky.map(c32), ink: c32(PAL.ink), cable: c32(PAL.cable),
-  piste: PISTE_KEYS.map(k => c32(PAL.piste[k])), skin: c32(PAL.skin), jackets: PAL.jackets.map(c32), light: c32(PAL.light), road: c32(PAL.road)
-};
-const mapper = over => ch => ({
-  s: P.snow[0], S: P.snow[1], n: P.snow[2], N: P.snow[3],
-  a: P.pine[0], b: P.pine[1], c: P.pine[2], t: P.trunk,
-  r: P.roof, w: P.wood[0], W: P.wood[1], d: P.ink, k: P.cable, l: P.light, f: P.skin, p: P.ink,
-  g: P.rock[0], G: P.rock[1], x: P.rock[2],
-  y: P.jackets[1], o: P.jackets[0], v: P.jackets[4], m: P.jackets[2], B: P.sky[1], I: P.sky[2],
-  h: over ? over.h : P.jackets[0], j: over ? over.j : P.jackets[1]
-})[ch] || 0;
-
-/* Une lettre = une couleur. L'ancre de chaque dessin est le pixel du bas, au milieu. */
+/* ---------- dessins : une lettre = une couleur ; ancre = pixel du bas, au milieu ---------- */
+const grid = (w, h) => Array.from({ length: h }, () => Array(w).fill('.'));
+const toRows = g => g.map(r => r.join(''));
+function compose(w, h, parts) { const g = grid(w, h); for (const [rows, x, y] of parts) rows.forEach((r, j) => [...r].forEach((ch, i) => { if (ch !== '.' && g[y + j] && x + i >= 0 && x + i < w) g[y + j][x + i] = ch; })); return g; }
+function house(w, roof, wall, o = {}) {
+  const g = grid(w, roof + 1 + (o.awning ? 1 : 0) + wall), mid = (w - 1) / 2;
+  for (let r = 0; r < roof; r++) {
+    const half = (r + 1) / roof * (mid + 0.5);
+    for (let c = 0; c < w; c++) { const d = Math.abs(c - mid); if (d <= half - 0.5) g[r][c] = c > mid + half * 0.3 ? 'S' : 's'; }
+  }
+  let y = roof;
+  g[y].fill('r'); y++;
+  if (o.awning) { for (let c = 1; c < w - 1; c++) g[y][c] = c % 2 ? 'o' : 's'; y++; }
+  const dw = o.doorW || 3, dh = o.doorH || 4, d0 = Math.round(mid - (dw - 1) / 2);
+  for (let r = 0; r < wall; r++, y++) for (let c = 1; c < w - 1; c++) {
+    let ch = r === wall - 1 || c === w - 2 ? 'W' : 'w';
+    for (const [wx, wy, ww = 2, wh = 2] of o.windows || []) if (c >= wx && c < wx + ww && r >= wy && r < wy + wh) ch = 'l';
+    if (c >= d0 && c < d0 + dw && r >= wall - dh) ch = 'd';
+    g[y][c] = ch;
+  }
+  return toRows(g);
+}
+function tower(w, floors, wood) {
+  const R = rng(wood ? 9 : 5), F = wood ? 'w' : 'g', Sh = wood ? 'W' : 'G', Ed = wood ? 'W' : 'x';
+  const rows = ['s'.repeat(w), 'S'.repeat(w - 1) + 'n', Sh.repeat(w - 1) + Ed];
+  for (let f = 0; f < floors; f++) {
+    let win = '';
+    for (let c = 0; c < w; c++) win += c === w - 1 ? Ed : c === w - 2 ? Sh : (c % 3 === 0 ? F : (R() < 0.55 ? 'l' : 'd'));
+    rows.push(win, win, F.repeat(w - 2) + Sh + Ed);
+  }
+  const mid = (w - 1) / 2, door = [...F.repeat(w - 2) + Sh + Ed].map((ch, c) => Math.abs(c - mid) <= 1 ? 'd' : ch).join('');
+  rows.push(door, door, Sh.repeat(w - 1) + Ed);
+  return rows;
+}
+function lattice(w, h) {
+  const mid = (w - 1) / 2, rows = ['k'.repeat(w), 'kk' + '.'.repeat(w - 4) + 'kk'];
+  for (let r = 2; r < h; r++) {
+    const hw = Math.round(1 + (r - 2) / (h - 3) * (mid - 1.5));
+    let s = '';
+    for (let c = 0; c < w; c++) { const d = Math.abs(c - mid); s += (d === hw || (r % 4 === 0 && d < hw) || (r % 4 === 2 && d === Math.round(hw / 2))) ? 'k' : '.'; }
+    rows.push(s);
+  }
+  return rows;
+}
+const rinkRows = (() => { const R = rng(3), rows = []; for (let y = 0; y < 16; y++) { let r = ''; for (let x = 0; x < 27; x++) { const edge = y === 0 || y === 15 || x === 0 || x === 26, corner = (y === 0 || y === 15) && (x === 0 || x === 26); r += corner ? '.' : edge ? 'W' : (R() < 0.06 ? 's' : 'I'); } rows.push(r); } return rows; })();
+const DOG = [".g.....","ggg...G","gGGGGGG",".GGGGG.",".G.G.G."];
+const SLED = ["...hhh..","...fff..","..jjjjj.","..jjjjjW",".jjjjj.W","..ppp..W","..p.p..W","WWWWWWWW","k......k"];
+const dogTeam = (() => { const g = compose(32, 9, [[DOG, 0, 4], [DOG, 8, 4], [DOG, 16, 4], [SLED, 24, 0]]); for (let x = 7; x < 24; x++) if (g[6][x] === '.') g[6][x] = 'k'; return toRows(g); })();
 const SPR = {
-  tree:        ["..s..",".sab.",".abc.","sabbc",".abc.","aabcc","..t.."],
-  chalet:      ["...sss...","..ssssS..",".sssssSS.","rrrrrrrrr",".wwwwwww.",".wlwwwlw.",".wwwdwww.",".WWWdWWW."],
-  tower:       ["sssssss","GGGGGGG","gldgldG","ggggggG","gdlgdlG","ggggggG","gldgdlG","ggggggG","gdlgldG","ggggggG","gldgdlG","ggggggG","ggdddgG","GGGGGGG"],
-  towerWood:   ["sssssss","WWWWWWW","wlwwlwW","wwwwwwW","wlwwdwW","wwwwwwW","wdwwlwW","wwwwwwW","wlwwlwW","wwwwwwW","WWWWWWW"],
-  hut:         ["..sss..",".sssSS.","rrrrrrr",".wwlww.",".wwdww.",".WWdWW."],
-  gareSiege:   ["...nnnn...","..nssssn..",".nssssSSn.","rrrrrrrrrr",".wlwwwwlw.",".wwwwwwww.",".wwwddwww.",".WWWddWWW."],
-  gareCabine:  ["....nnnn....","...nssssn...","..nssssSSn..",".nssssssSSn.","rrrrrrrrrrrr",".wwlwwwwlww.",".wwwwwwwwww.",".wlwwddwwlw.",".wwwwddwwww.",".WWWWddWWWW."],
-  pylonSki:    ["kkk",".k.",".k.",".k.",".k.",".k.",".k."],
-  pylonSiege:  ["kkkkk","k.k.k","..k..","..k..","..k..","..k..","..k..","..k..",".kkk."],
-  pylonCabine: ["kkkkk","k.k.k",".kkk.",".k.k.",".kkk.",".k.k.",".kkk.",".k.k.",".kkk.","k...k","k...k"],
-  restaurant:  ["...sssss...","..sssssSS..",".sssssssSS.","rrrrrrrrrrr",".wlwwlwwlw.",".wwwwdwwww.",".WWWWdWWWW.","ooo.....ooo",".k.......k."],
-  cafe:        [".g.g...","..g.g..",".sssss.","sssssSS","rrrrrrr","wllllww","WWWWdWW"],
-  cross:       ["..d..",".ddd.","..d..","..d..",".GdG.","GGxGG"],
-  belvedere:   [".ddd.","dBdBd",".ddd.","..d..","..d..","wwwww","W...W"],
-  sled:        ["..h....","..f....",".jjj...","wwwwww.","kkkkkkk"],
-  kicker:      [".........ss..","........sSSn.",".......sSSSn.","kkkkk.sSSSSnN","k...k.nnnnnnN","k...k........"],
-  sign:        ["vvvvv","vsvsv","vvvvv","..W..","..W..","..W.."],
-  traineau:    ["...........h..","...........f..","gg..gg..gg.jjW","GGGkGGGkGGGjjW","G.G.G.G.G.Gkkk"],
-  windsock:    ["kosos","k.so.","k....","k....","k....","k....","k...."],
-  rink:        [".WWWWWWWWWWW.","WIIsIIIIIIIIW","WIIIIIsIIIIIW","WIIIIIIIIIsIW","WIsIIIIIIIIIW","WIIIIIIIsIIIW",".WWWWWWWWWWW."],
-  paraglider:  [".mmmmm.","mm...mm",".k...k.","..k.k..","...j...","...p..."],
-  skier:       [".h.",".f.","jjj",".p.","kkk"]
+  tree:        [".....s.....","....sas....","....sab....","...saabb...","...aabbc...","..ssaabbc..","..saabbbc..","..aaabbcc..",".ssaaabbcc.",".saaabbbcc.",".aaabbbbcc.","ssaaabbbccc","saaabbbbccc","aaaabbbcccc",".....t.....",".....t....."],
+  treeS:       ["...s...","..sab..","..abb..",".ssabc.",".aabbc.","ssaabcc",".aabbbc","saabbbc","aaabbcc","...t...","...t..."],
+  skier:       ["..hhh..",".hhhhh.","..BBB..","..fff..",".jjjjj.","kjjjjjk","k.ppp.k","k.p.p.k","..p.p..","kkk.kkk"],
+  chalet:      house(15, 6, 7, { windows: [[2, 1], [11, 1]], doorH: 4 }),
+  towerC:      tower(13, 8, false),
+  towerW:      tower(13, 5, true),
+  restaurant:  [...house(25, 8, 8, { windows: [[2, 1], [6, 1], [16, 1], [20, 1]], doorH: 4 }), "ooo.....ooo...ooo.....ooo", ".k.......k.....k.......k."],
+  cafe:        ["....g..g.....", ".....g..g....", "....g..g.....", ...house(13, 5, 5, { awning: true, windows: [[2, 1, 3, 2], [8, 1, 3, 2]], doorH: 3 })],
+  sommet:      ["........d........",".......ddd.......","........d........","........d........","........d........",".......gdg.......","......ggGGg......",".....sggGGGx.....","....ssgGGGGxx....","...ssggGGGGxxx...","..ssgggGGGGxxxx..",".sssggGGGGGxxxxx.","ssgggGGGGGxxxxxxx"],
+  vue:         ["...kkkkkkk...","..kBBkkkBBk..","..kBBkkkBBk..","...kkkkkkk...","......k......","......k......","......k......",".....kkk.....","wwwwwwwwwwwww","WwwwwwwwwwwwW","W.W.......W.W","W.W.......W.W"],
+  luge:        ["...hhh...........","..hhhhh..........","...fff...........","..jjjjj..........",".jjjjjjj.........",".jjjjjjjppp......","wwwwwwwwwwwwwww..","WWWWWWWWWWWWWWW..",".k.....k.....k.k.","kkkkkkkkkkkkkkkk."],
+  snowpark:    ["...................ss....","..................sSSn...",".................sSSSn...","................sSSSSnN..","...............sSSSSSnN..","kkkkkkkkkkk...sSSSSSSnN..","k.........k..sSSSSSSSnN..","k.........k..nnnnnnnnnN..","k.........k..............","kk.......kk.............."],
+  windsock:    ["kooossoo...","kooossoo...","k.oossoo...","k..sso.....",...Array(13).fill("k.........."),"kk........."],
+  paraglider:  [".....mmmmmmmmm.....","...mmmmmmmmmmmmm...",".mmm...........mmm.","mm...............mm","k.k.............k.k","..k.............k..","...k...........k...","....k.........k....",".....k.......k.....","......k.....k......",".......jjjjj.......","........jjj........","........p.p........"],
+  dogs:        dogTeam,
+  rink:        rinkRows,
+  raquettes:   [".vvvvvvvvv.",".vsssvsssv.",".vsssvsssv.",".vvsvvvsvv.",".vvvvvvvvv.",".....W.....",".....W.....",".....W.....",".....W.....",".....W.....",".....W....."],
+  terminal:    [".nnnnnnnnn.","nsssssssSSn","GGGGGGGGGGx","GgggggggGGx","GgkkkkkggGx","GgkdddkggGx","GgkkkkkggGx","GgggggggGGx","xxxxxxxxxxx"],
+  pylonSki:    ["kkkk.","k.k..",...Array(15).fill("..k.."),".kkk."],
+  pylonSiege:  ["k".repeat(13),"kk.........kk",...Array(20).fill(".....kd......"),"....kkdd.....","...kkkddd...."],
+  pylonCabine: lattice(13, 30),
+  dameuse:     ["....rrrrr....","...rBBBBBr...","...rBBBBBr...",".rrrrrrrrrrr.","lrrrrrrrrrrrl",".rrrrrrrrrrr.","ddddddddddddd","dkdkdkdkdkdkd","ggggggggggggg"],
+  heart:       [".mmm.mmm.","mmmmmmmmm","mmmmmmmmm","mmmmmmmmm",".mmmmmmm.","..mmmmm..","...mmm...","....m...."]
 };
+for (const k in SPR) if (SPR[k].some(r => r.length !== SPR[k][0].length)) console.error('Dessin mal formé : ' + k);
 function compileSpr(rows, map) {
   const h = rows.length, w = rows[0].length, px = [];
   for (let r = 0; r < h; r++) for (let c = 0; c < w; c++) { const col = map(rows[r][c]); if (col) px.push(c - (w >> 1), r - (h - 1), col); }
@@ -427,33 +474,76 @@ function compileSpr(rows, map) {
   return px;
 }
 function blitG(b, bw, bh, px, ax, ay) { for (let k = 0; k < px.length; k += 3) putG(b, bw, bh, ax + px[k], ay + px[k + 1], px[k + 2]); }
-const SP = {};
-for (const k in SPR) SP[k] = compileSpr(SPR[k], mapper());
-const SKIERS_SPR = [0, 1, 2, 3, 4].map(c => compileSpr(SPR.skier, mapper({ h: P.jackets[(c + 2) % 5], j: P.jackets[c] })));
 
-function drawHub(b, bw, bh, x, y) {
-  blitG(b, bw, bh, SP.tower, x - 6, y - 5);
-  blitG(b, bw, bh, SP.towerWood, x + 5, y - 4);
-  blitG(b, bw, bh, SP.chalet, x - 10, y);
-  blitG(b, bw, bh, SP.chalet, x + 11, y);
-  blitG(b, bw, bh, SP.chalet, x + 1, y + 1);
+function compile(pal) {
+  const P = {
+    snow: pal.snow.map(c32), groomed: c32(pal.groomed), rock: pal.rock.map(c32), pine: pal.pine.map(c32), trunk: c32(pal.trunk),
+    wood: pal.wood.map(c32), roof: c32(pal.roof), sky: pal.sky.map(c32), ink: c32(pal.ink), cable: c32(pal.cable),
+    piste: PISTE_KEYS.map(k => c32(pal.piste[k])), skin: c32(pal.skin), jackets: pal.jackets.map(c32), light: c32(pal.light), road: c32(pal.road)
+  };
+  const map = over => ch => ({
+    s: P.snow[0], S: P.snow[1], n: P.snow[2], N: P.snow[3], e: P.groomed,
+    a: P.pine[0], b: P.pine[1], c: P.pine[2], t: P.trunk,
+    r: P.roof, w: P.wood[0], W: P.wood[1], d: P.ink, k: P.cable, l: P.light, f: P.skin, p: P.ink,
+    g: P.rock[0], G: P.rock[1], x: P.rock[2],
+    y: P.jackets[1], o: P.jackets[0], v: P.jackets[4], m: P.jackets[2], B: P.sky[1], I: P.sky[2],
+    h: over ? over.h : P.jackets[0], j: over ? over.j : P.jackets[1]
+  })[ch] || 0;
+  P.SP = {};
+  for (const k in SPR) P.SP[k] = compileSpr(SPR[k], map());
+  P.SK = [0, 1, 2, 3, 4].map(c => compileSpr(SPR.skier, map({ h: P.jackets[(c + 2) % 5], j: P.jackets[c] })));
+  return P;
 }
-function drawChair(b, bw, bh, cx, cy, occupied, jacket) {
-  putG(b, bw, bh, cx, cy + 1, P.cable); putG(b, bw, bh, cx, cy + 2, P.cable);
-  putG(b, bw, bh, cx + 1, cy + 3, P.ink); putG(b, bw, bh, cx + 1, cy + 4, P.ink);
-  for (let dx = -1; dx <= 1; dx++) putG(b, bw, bh, cx + dx, cy + 5, P.ink);
-  if (occupied) { putG(b, bw, bh, cx, cy + 3, P.skin); putG(b, bw, bh, cx - 1, cy + 4, jacket); putG(b, bw, bh, cx, cy + 4, jacket); }
+const THEMES = { jour: compile(DAY), nuit: compile(NIGHT) };
+
+function drawStation(b, bw, bh, T, x, y) {
+  blitG(b, bw, bh, T.SP.towerC, x - 11, y - 10);
+  blitG(b, bw, bh, T.SP.towerW, x + 10, y - 8);
+  blitG(b, bw, bh, T.SP.chalet, x - 21, y - 1);
+  blitG(b, bw, bh, T.SP.chalet, x + 22, y - 1);
+  blitG(b, bw, bh, T.SP.chalet, x, y + 3);
 }
-function drawCabin(b, bw, bh, cx, cy) {
-  putG(b, bw, bh, cx, cy + 1, P.ink);
-  for (let yy = 2; yy <= 5; yy++) for (let dx = -1; dx <= 1; dx++) putG(b, bw, bh, cx + dx, cy + yy, (dx === 0 && (yy === 3 || yy === 4)) ? P.sky[1] : P.jackets[1]);
+function drawPlatform(b, bw, bh, T, cx, cy, rx, ry, rimCol) {
+  const inside = (x, y) => ((x - cx) / rx) ** 2 + ((y - cy) / ry) ** 2 <= 1;
+  for (let y = Math.floor(cy - ry); y <= Math.ceil(cy + ry); y++) for (let x = Math.floor(cx - rx); x <= Math.ceil(cx + rx); x++) {
+    if (!inside(x, y)) continue;
+    const rim = !inside(x + 1, y) || !inside(x - 1, y) || !inside(x, y + 1) || !inside(x, y - 1);
+    putG(b, bw, bh, x, y, rim ? (rimCol || ((y >= cy || x > cx + rx * 0.6) ? T.snow[3] : T.snow[0])) : T.groomed);
+  }
 }
-function drawPerche(b, bw, bh, cx, cy, sx, sy, skier) {
-  lineG(b, bw, bh, cx, cy + 1, sx, sy - 3, P.cable);
+function drawSignpost(b, bw, bh, T, x, y, cols) {
+  for (let yy = y - 18; yy <= y; yy++) { putG(b, bw, bh, x, yy, T.wood[0]); putG(b, bw, bh, x + 1, yy, T.wood[1]); }
+  cols.forEach((c, k) => {
+    const left = k % 2 === 1, y0 = y - 17 + k * 6;
+    for (let dy = 0; dy < 4; dy++) for (let dx = 0; dx < 8; dx++) putG(b, bw, bh, left ? x - 8 + dx : x + 2 + dx, y0 + dy, c);
+    putG(b, bw, bh, left ? x - 9 : x + 10, y0 + 1, c); putG(b, bw, bh, left ? x - 9 : x + 10, y0 + 2, c);
+  });
+}
+function drawChair(b, bw, bh, T, cx, cy, occupied, k) {
+  for (let i = 1; i <= 3; i++) putG(b, bw, bh, cx, cy + i, T.cable);
+  for (let dx = -3; dx <= 3; dx++) { putG(b, bw, bh, cx + dx, cy + 4, T.ink); putG(b, bw, bh, cx + dx, cy + 8, T.ink); }
+  if (occupied) {
+    const ja = T.jackets[k % 5], jb = T.jackets[(k + 3) % 5];
+    putG(b, bw, bh, cx - 2, cy + 5, T.skin); putG(b, bw, bh, cx - 1, cy + 5, T.skin); putG(b, bw, bh, cx + 1, cy + 5, T.skin); putG(b, bw, bh, cx + 2, cy + 5, T.skin);
+    for (let r = 6; r <= 7; r++) { for (const dx of [-3, -2, -1]) putG(b, bw, bh, cx + dx, cy + r, ja); for (const dx of [1, 2, 3]) putG(b, bw, bh, cx + dx, cy + r, jb); }
+    for (const dx of [-3, -2, 2, 3]) putG(b, bw, bh, cx + dx, cy + 9, T.cable);
+  }
+}
+function drawCabin(b, bw, bh, T, cx, cy) {
+  for (let i = 1; i <= 3; i++) putG(b, bw, bh, cx, cy + i, T.ink);
+  for (let yy = 4; yy <= 12; yy++) for (let dx = -3; dx <= 3; dx++) {
+    if ((yy === 4 || yy === 12) && Math.abs(dx) === 3) continue;
+    const win = Math.abs(dx) <= 2 && yy >= 6 && yy <= 8;
+    putG(b, bw, bh, cx + dx, cy + yy, win ? (dx === 0 ? T.jackets[1] : T.sky[1]) : T.jackets[1]);
+  }
+}
+function drawPerche(b, bw, bh, T, cx, cy, sx, sy, skier) {
+  lineG(b, bw, bh, cx, cy + 1, sx, sy - 6, T.cable);
   if (skier) blitG(b, bw, bh, skier, sx, sy);
 }
 
 /* ---------- la montagne ---------- */
+const MPX = 6, HM = 650;                  /* 6 m par pixel, 650 m par unité de hauteur */
 const hgt = new Float32Array(W * H);
 for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
   const u = x / W, v = y / H;
@@ -462,146 +552,177 @@ for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
   e += 0.22 * Math.exp(-((u - 0.2) ** 2 / 0.012 + (v - 0.1) ** 2 / 0.035));
   e += 0.16 * Math.exp(-((u - 0.9) ** 2 / 0.01 + (v - 0.14) ** 2 / 0.03));
   e -= 0.10 * Math.exp(-((u - 0.42) ** 2) / 0.006) * (1 - v) * 1.2;
-  e += 0.07 * fbm(u * 5 + 3.1, v * 5 + 1.7);
+  e += 0.06 * fbm(u * 5 + 3.1, v * 5 + 1.7) + 0.015 * fbm(u * 22, v * 22);
   if (v > 0.82) { const k = Math.min(1, (v - 0.82) / 0.12); e = e * (1 - k) + 0.07 * k; }
   hgt[y * W + x] = e;
 }
-const slope = new Float32Array(W * H), lam = new Float32Array(W * H);
+const hAt = (x, y) => hgt[Math.max(0, Math.min(H - 1, Math.round(y))) * W + Math.max(0, Math.min(W - 1, Math.round(x)))];
+const slope = new Float32Array(W * H), lam = new Float32Array(W * H), pente = new Float32Array(W * H);
 let sum = 0, sum2 = 0;
 for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
   const i = y * W + x;
-  const dx = (hgt[y * W + Math.min(W - 1, x + 1)] - hgt[y * W + Math.max(0, x - 1)]) * 40;
-  const dy = (hgt[Math.min(H - 1, y + 1) * W + x] - hgt[Math.max(0, y - 1) * W + x]) * 40;
+  const gx = (hgt[y * W + Math.min(W - 1, x + 1)] - hgt[y * W + Math.max(0, x - 1)]), gy = (hgt[Math.min(H - 1, y + 1) * W + x] - hgt[Math.max(0, y - 1) * W + x]);
+  const dx = gx * 120, dy = gy * 120;
   const l = (0.55 * dx + 0.55 * dy + 0.63) / Math.hypot(dx, dy, 1);
   lam[i] = l; slope[i] = Math.hypot(dx, dy); sum += l; sum2 += l * l;
+  pente[i] = Math.hypot(gx, gy) / 2 * HM / MPX;
 }
 const MEAN = sum / (W * H), STD = Math.sqrt(Math.max(1e-6, sum2 / (W * H) - MEAN * MEAN));
 const highSlopes = []; for (let i = 0; i < W * H; i++) if (hgt[i] > 0.72) highSlopes.push(slope[i]);
 highSlopes.sort((a, b) => a - b);
 const THR = highSlopes[Math.floor(highSlopes.length * 0.8)] || 1;
 
-/* Pistes : verte, bleue, rouge, noire (l'ordre donne la couleur). */
-const PISTES = [
-  [[64,100],[54,108],[50,118],[58,127],[72,134]],
-  [[170,76],[156,80],[140,86],[126,92],[112,102],[104,114],[106,126]],
-  [[146,20],[136,26],[124,34],[116,46],[112,60],[114,72],[117,78]],
-  [[156,20],[168,28],[182,40],[196,56],[204,76],[198,96],[184,112],[166,124],[156,134]]
-].map(pts => withLength(spline(pts, 0.5)));
-const LUGE = spline([[34,114],[26,122],[30,130],[40,136]], 0.5);
-const RAQUETTES = spline([[18,99],[26,104],[24,112],[16,118],[20,124]], 0.5);
+/* La couleur d'un tronçon : sa pente la plus forte, mesurée sur une fenêtre glissante de 24 pixels (144 m). */
+const SEUILS = [0.25, 0.40, 0.60];
+const classe = p => p < SEUILS[0] ? 0 : p < SEUILS[1] ? 1 : p < SEUILS[2] ? 2 : 3;
+function penteMax(path) {
+  let m = 0; const n = 48;
+  for (let k = 0; k + n < path.length; k += 2) {
+    const a = path[k], b = path[k + n], dist = Math.hypot(b[0] - a[0], b[1] - a[1]) * MPX;
+    if (dist > 0) m = Math.max(m, Math.abs(hAt(a[0], a[1]) - hAt(b[0], b[1])) * HM / dist);
+  }
+  return m;
+}
 
+/* ---------- le graphe : nœuds, intersections, remontées, tronçons ---------- */
+const NODES = {
+  s1:    { x:330, y:408, kind:'station' },
+  s2:    { x:648, y:396, kind:'station', libre:true },
+  resto: { x:495, y:228, kind:'restaurant' },
+  cafe:  { x:225, y:288, kind:'cafe' },
+  som:   { x:453, y:46,  kind:'sommet' },
+  vue:   { x:294, y:147, kind:'vue' },
+  luge:  { x:150, y:357, kind:'luge' },
+  park:  { x:588, y:297, kind:'snowpark' },
+  para:  { x:174, y:93,  kind:'windsock', libre:true },
+  j1:    { x:540, y:120, kind:'junction' },
+  j2:    { x:430, y:345, kind:'junction' }
+};
+for (const n of Object.values(NODES)) {
+  const st = n.kind === 'station', jn = n.kind === 'junction';
+  n.rx = st ? 40 : jn ? 10 : 19; n.ry = st ? 13 : jn ? 5 : 7; n.cy = n.y - (st ? 4 : jn ? 0 : 2);
+}
+const rimPoint = (n, tx, ty) => {
+  const dx = tx - n.x, dy = ty - n.cy, l = Math.hypot(dx, dy) || 1, ux = dx / l, uy = dy / l;
+  const r = 1 / Math.sqrt((ux / n.rx) ** 2 + (uy / n.ry) ** 2);
+  return [Math.round(n.x + ux * (r + 3)), Math.round(n.cy + uy * (r + 3))];
+};
 const LIFTS = [
-  { type:'teleski',    a:[84,134],  b:[66,98],  n:7, speed:0.05,  pole:6,  pylon:'pylonSki',    gares:['hut', null],                 strands:[0] },
-  { type:'telesiege',  a:[120,78],  b:[150,16], n:8, speed:0.035, pole:8,  pylon:'pylonSiege',  gares:['gareSiege','gareSiege'],     strands:[2,-2] },
-  { type:'telecabine', a:[138,132], b:[176,70], n:7, speed:0.03,  pole:10, pylon:'pylonCabine', gares:['gareCabine','gareCabine'],   strands:[2,-2] }
+  { type:'telecabine', from:'s1',    to:'resto', n:9,  speed:0.022, pole:29, pylon:'pylonCabine', strands:[6,-6] },
+  { type:'telesiege',  from:'resto', to:'som',   n:10, speed:0.03,  pole:23, pylon:'pylonSiege',  strands:[6,-6] },
+  { type:'teleski',    from:'s1',    to:'cafe',  n:8,  speed:0.04,  pole:17, pylon:'pylonSki',    strands:[0] }
 ];
 LIFTS.forEach(L => {
-  const len = Math.hypot(L.b[0] - L.a[0], L.b[1] - L.a[1]), np = Math.max(2, Math.round(len / 15));
+  const A = NODES[L.from], B = NODES[L.to];
+  L.a = rimPoint(A, B.x, B.cy); L.b = rimPoint(B, A.x, A.cy);
+  const len = Math.hypot(L.b[0] - L.a[0], L.b[1] - L.a[1]), np = Math.max(2, Math.round(len / 36));
   L.pylons = [];
   for (let k = 1; k < np; k++) { const t = k / np; L.pylons.push({ t, x: Math.round(L.a[0] + (L.b[0] - L.a[0]) * t), y: Math.round(L.a[1] + (L.b[1] - L.a[1]) * t) }); }
-  L.pts = [{ t: 0, x: L.a[0], y: L.a[1] }, ...L.pylons, { t: 1, x: L.b[0], y: L.b[1] }].map(p => ({ t: p.t, x: p.x, y: p.y - L.pole }));
+  L.pts = [{ t: 0, x: L.a[0], y: L.a[1] - 7 }, ...L.pylons.map(p => ({ t: p.t, x: p.x, y: p.y - L.pole })), { t: 1, x: L.b[0], y: L.b[1] - 7 }];
 });
-const liftDist = (x, y) => Math.min(...LIFTS.map(L => segDist(x, y, L.a, L.b)));
-
-const HUB = { x: 112, y: 141 };
-const POIS = [
-  { x:189, y:72,  s:'restaurant' }, { x:107, y:80, s:'cafe' },
-  { x:160, y:10,  s:'cross' },      { x:48,  y:14, s:'cross' },
-  { x:100, y:52,  s:'belvedere' },
-  { x:180, y:102, s:'kicker' },     { x:170, y:100, s:'sign' },
-  { x:34,  y:112, s:'sign' },       { x:44,  y:139, s:'sled' },
-  { x:14,  y:96,  s:'sign' },
-  { x:212, y:125, s:'traineau' },   { x:188, y:126, s:'sign' },
-  { x:76,  y:36,  s:'windsock' },   { x:70,  y:38,  s:'sign' },
-  { x:84,  y:143, s:'rink' }
-];
-const TRAINEAU = Array.from({ length: 160 }, (_, k) => [210 + 18 * Math.cos(k / 160 * 2 * Math.PI), 129 + 5 * Math.sin(k / 160 * 2 * Math.PI)]);
-const CHALETS = [[20,142],[52,143],[170,141],[188,139],[206,142],[222,140]];
+const SECTIONS = {
+  a: { from:'som',   to:'j1',   via:[[484,78],[510,108]] },
+  b: { from:'j1',    to:'park', via:[[585,170],[600,240]] },
+  c: { from:'j1',    to:'resto',via:[[525,170]] },
+  d: { from:'resto', to:'j2',   via:[[500,280],[470,320]] },
+  e: { from:'park',  to:'j2',   via:[[540,340],[480,350]] },
+  f: { from:'j2',    to:'s1',   via:[[390,380],[360,400]] },
+  g: { from:'som',   to:'vue',  via:[[405,66],[360,93],[321,123]] },
+  h: { from:'vue',   to:'cafe', via:[[267,192],[243,240]] },
+  i: { from:'cafe',  to:'luge', via:[[192,315]] },
+  j: { from:'luge',  to:'s1',   via:[[192,387],[258,405]] }
+};
+for (const [id, s] of Object.entries(SECTIONS)) {
+  const A = NODES[s.from], B = NODES[s.to];
+  Object.assign(s, withLength(spline([[A.x, A.cy], ...s.via, [B.x, B.cy]], 0.5)));
+  s.pente = penteMax(s.path); s.c = classe(s.pente); s.id = id;
+}
+const ROUTES = [['a','c'], ['a','b','e','f'], ['d','f'], ['g','h','i','j'], ['i','j'], ['c','d','f']].map(ids => {
+  const path = ids.flatMap((id, k) => k ? SECTIONS[id].path.slice(1) : SECTIONS[id].path);
+  return { ...withLength(path), ids };
+});
+const sectionAtRoute = (r, d) => { let acc = 0; for (const id of r.ids) { acc += SECTIONS[id].len; if (d <= acc) return SECTIONS[id]; } return SECTIONS[r.ids[r.ids.length - 1]]; };
 
 const pd = new Float32Array(W * H).fill(99), pid = new Int8Array(W * H).fill(-1);
-PISTES.forEach((p, k) => stamp(p.path, 4, pd, pid, k));
-const ld = new Float32Array(W * H).fill(99); stamp(LUGE, 2, ld); stamp(TRAINEAU, 2, ld);
-const rd = new Float32Array(W * H).fill(99); stamp(RAQUETTES, 3, rd);
-
+for (const s of Object.values(SECTIONS)) stamp(s.path, 8, pd, pid, s.c);
 const mat = new Uint8Array(W * H), lvl = new Uint8Array(W * H), con = new Uint8Array(W * H);
-const NC = 14;
+const NC = 18;
 for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
   const i = y * W + x;
-  lvl[i] = lv(0.5 + (lam[i] - MEAN) / STD * 0.2, x, y);
-  if (y >= 145 && y <= 146) { mat[i] = 4; continue; }
-  if (pd[i] <= 2.1) { mat[i] = 2; continue; }
-  if (pd[i] <= 3.1) { mat[i] = 3; continue; }
-  if (segDist(x, y, LIFTS[0].a, LIFTS[0].b) < 1.1 || ld[i] <= 1.3) { mat[i] = 2; continue; }
-  const e = hgt[i], n = fbm(x / 9, y / 9);
+  const v = 0.5 + (lam[i] - MEAN) / STD * 0.2 + bay(x, y) * 0.16;
+  lvl[i] = v > 0.56 ? 0 : v > 0.42 ? 1 : v > 0.28 ? 2 : 3;
+  if (y >= 437 && y <= 440) { mat[i] = 4; continue; }
+  if (pd[i] <= 4.8) { mat[i] = 2; continue; }
+  if (pd[i] <= 6.6) { mat[i] = 3; continue; }
+  if (segDist(x, y, LIFTS[2].a, LIFTS[2].b) < 2.4) { mat[i] = 2; continue; }
+  const e = hgt[i], n = fbm(x / 27, y / 27);
   if ((e > 0.7 && slope[i] > THR * (1 - n * 0.4)) || (e > 0.66 && n > 0.5)) { mat[i] = 1; continue; }
   const a = Math.floor(e * NC), ar = Math.floor(hgt[y * W + Math.min(W - 1, x + 1)] * NC), ad = Math.floor(hgt[Math.min(H - 1, y + 1) * W + x] * NC);
   if (a !== ar || a !== ad) con[i] = (Math.max(a, ar, ad) % 4 === 0) ? 2 : 1;
 }
+const AVALANCHE = new Uint8Array(W * H);
+for (let i = 0; i < W * H; i++) if (pente[i] >= SEUILS[2] && hgt[i] > 0.55 && mat[i] !== 2 && mat[i] !== 3) AVALANCHE[i] = 1;
 
+const nodeNear = (x, y, m) => Object.values(NODES).some(n => ((x - n.x) / (n.rx + m)) ** 2 + ((y - n.cy) / (n.ry + m * 0.8 + 16)) ** 2 <= 1);
 const TREES = [];
 {
-  const R = rng(11), near = [...POIS, ...LIFTS.flatMap(L => [{ x: L.a[0], y: L.a[1] }, { x: L.b[0], y: L.b[1] }])];
-  for (let gy = 1; gy < H - 4; gy += 3) for (let gx = 0; gx < W; gx += 3) {
-    const x = Math.min(W - 1, Math.round(gx + R() * 3)), y = Math.min(H - 1, Math.round(gy + R() * 3)), i = y * W + x;
-    const dens = (0.46 - hgt[i]) * 3 + fbm(x / 24 + 7, y / 24 + 3) * 1.3;
+  const R = rng(11);
+  for (let gy = 3; gy < H - 8; gy += 6) for (let gx = 0; gx < W; gx += 6) {
+    const x = Math.min(W - 1, Math.round(gx + R() * 6)), y = Math.min(H - 1, Math.round(gy + R() * 6)), i = y * W + x;
+    const dens = (0.46 - hgt[i]) * 3 + fbm(x / 72 + 7, y / 72 + 3) * 1.3 - (y > 375 ? 0.5 : 0);
     if (dens < R() * 0.9 + 0.15) continue;
-    if (pd[i] < 5.5 || ld[i] < 3 || rd[i] < 2.5 || liftDist(x, y) < 5 || mat[i] === 1 || mat[i] === 4) continue;
-    if ((y > 121 && x > 8 && x < 232) || y > 143) continue;
-    if (near.some(p => Math.hypot(p.x - x, p.y - y) < 8)) continue;
-    TREES.push({ x, y });
+    if (pd[i] < 13 || mat[i] === 1 || mat[i] === 4 || y > 430) continue;
+    if (LIFTS.some(L => segDist(x, y, L.a, L.b) < 13) || nodeNear(x, y, 14)) continue;
+    TREES.push({ x, y, s: R() < 0.5 ? 'tree' : 'treeS' });
   }
 }
-
 const STATICS = [
-  ...TREES.map(t => ({ x: t.x, y: t.y, s: 'tree' })),
-  ...CHALETS.map(([x, y]) => ({ x, y, s: 'chalet' })),
-  ...POIS,
-  { x: HUB.x, y: HUB.y, hub: true },
-  ...LIFTS.flatMap(L => [
-    ...L.pylons.map(p => ({ x: p.x, y: p.y, s: L.pylon })),
-    ...(L.gares[0] ? [{ x: L.a[0], y: L.a[1] + 1, s: L.gares[0] }] : []),
-    ...(L.gares[1] ? [{ x: L.b[0], y: L.b[1] + 1, s: L.gares[1] }] : [])
-  ])
+  ...TREES,
+  ...Object.values(NODES).map(n => ({ x: n.x, y: n.y, node: n })),
+  ...LIFTS.flatMap(L => [...L.pylons.map(p => ({ x: p.x, y: p.y, s: L.pylon })), { x: L.a[0], y: L.a[1], s: 'terminal' }, { x: L.b[0], y: L.b[1], s: 'terminal' }])
 ].sort((a, b) => a.y - b.y);
+const outgoing = id => Object.values(SECTIONS).filter(s => s.from === id).map(s => s.c);
 
-function tex(i) {
+function tex(T, i) {
   const l = lvl[i];
   switch (mat[i]) {
-    case 0: return P.snow[Math.min(3, l + con[i])];
-    case 1: return P.rock[[0, 0, 1, 1][l]];
-    case 2: return l <= 1 ? P.groomed : P.snow[l - 1];
-    case 3: return P.piste[pid[i]];
-    default: return P.road;
+    case 0: return T.snow[Math.min(3, l + con[i])];
+    case 1: return T.rock[[0, 0, 0, 1][l]];
+    case 2: return l <= 1 ? T.groomed : T.snow[l - 1];
+    case 3: return T.piste[pid[i]];
+    default: return T.road;
   }
 }
-
-const BASE = (() => {
+function buildBase(T, night) {
   const b = new Uint32Array(W * H);
-  for (let i = 0; i < W * H; i++) b[i] = tex(i);
-  RAQUETTES.forEach(([x, y], k) => { if (k % 4 === 0) { const o = (k / 4) % 2 ? 1 : -1; putG(b, W, H, Math.round(x + o), Math.round(y), P.snow[2]); } });
+  for (let i = 0; i < W * H; i++) b[i] = tex(T, i);
+  if (night) for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (AVALANCHE[y * W + x] && (x + y) % 6 === 0) b[y * W + x] = T.jackets[0];
+  for (const n of Object.values(NODES)) drawPlatform(b, W, H, T, n.x, n.cy, n.rx, n.ry, n.kind === 'junction' ? T.ink : null);
   for (const s of STATICS) {
-    if (s.hub) { for (let dx = -12; dx <= 17; dx++) putG(b, W, H, s.x + dx, s.y + 2, P.snow[2]); continue; }
-    const w = SP[s.s].w;
-    if (w <= 5) { putG(b, W, H, s.x + 1, s.y, P.snow[3]); putG(b, W, H, s.x + 2, s.y, P.snow[3]); putG(b, W, H, s.x + 2, s.y - 1, P.snow[2]); }
-    else for (let dx = -(w >> 1) + 2; dx <= (w >> 1) + 2; dx++) putG(b, W, H, s.x + dx, s.y + 1, P.snow[2]);
+    if (s.node) continue;
+    const w = T.SP[s.s].w;
+    if (s.s === 'tree' || s.s === 'treeS' || w <= 5) { for (let dx = 1; dx <= 4; dx++) putG(b, W, H, s.x + dx, s.y, T.snow[dx < 3 ? 3 : 2]); putG(b, W, H, s.x + 2, s.y - 1, T.snow[2]); putG(b, W, H, s.x + 3, s.y - 1, T.snow[2]); }
+    else for (let dx = -(w >> 1) + 3; dx <= (w >> 1) + 3; dx++) { putG(b, W, H, s.x + dx, s.y + 1, T.snow[2]); putG(b, W, H, s.x + dx, s.y + 2, T.snow[2]); }
   }
-  for (const s of STATICS) { if (s.hub) drawHub(b, W, H, s.x, s.y); else blitG(b, W, H, SP[s.s], s.x, s.y); }
-  for (const L of LIFTS) for (const off of L.strands) for (let k = 0; k < L.pts.length - 1; k++) lineG(b, W, H, L.pts[k].x + off, L.pts[k].y, L.pts[k + 1].x + off, L.pts[k + 1].y, P.cable);
+  for (const s of STATICS) {
+    if (s.node) {
+      const k = s.node.kind;
+      if (k === 'station') drawStation(b, W, H, T, s.x, s.y);
+      else if (k === 'junction') drawSignpost(b, W, H, T, s.x + 9, s.y + 1, outgoing(Object.keys(NODES).find(id => NODES[id] === s.node)).map(c => T.piste[c]));
+      else blitG(b, W, H, T.SP[k], s.x, s.y);
+    } else blitG(b, W, H, T.SP[s.s], s.x, s.y);
+  }
+  for (const L of LIFTS) for (const off of L.strands) for (let k = 0; k < L.pts.length - 1; k++) lineG(b, W, H, L.pts[k].x + off, L.pts[k].y, L.pts[k + 1].x + off, L.pts[k + 1].y, T.cable);
   return b;
-})();
+}
+const BASES = {};
+const base = phase => BASES[phase] || (BASES[phase] = buildBase(THEMES[phase], phase === 'nuit'));
 
 /* ---------- ce qui bouge ---------- */
 const SKIERS = [];
 {
-  const R = rng(23), plan = [0,0,0,0,0,1,1,1,1,1,2,2,2,2,3,3,3,3], sp = [6, 8, 11, 13];
-  plan.forEach((p, k) => SKIERS.push({ p, c: k % 5, speed: sp[p] * (0.75 + R() * 0.5), off: R() * PISTES[p].len, seed: R() * 6.28 }));
-}
-function pathAt(p, d) {
-  const c = p.cum; let lo = 0, hi = c.length - 1;
-  while (lo < hi - 1) { const m = (lo + hi) >> 1; if (c[m] <= d) lo = m; else hi = m; }
-  const a = p.path[lo], b = p.path[hi], t = (d - c[lo]) / ((c[hi] - c[lo]) || 1);
-  const dx = b[0] - a[0], dy = b[1] - a[1], l = Math.hypot(dx, dy) || 1;
-  return [a[0] + dx * t, a[1] + dy * t, -dy / l, dx / l];
+  const R = rng(23);
+  for (let k = 0; k < 54; k++) { const r = k % ROUTES.length; SKIERS.push({ r, c: k % 5, speed: 0.7 + R() * 0.6, off: R() * ROUTES[r].len, seed: R() * 6.28 }); }
 }
 function cableAt(L, t) {
   const pts = L.pts;
@@ -611,45 +732,82 @@ function cableAt(L, t) {
   }
   const l = pts[pts.length - 1]; return [l.x, l.y];
 }
-function drawDyn(b, time) {
-  const fly = (time / 40) % 1, fx = Math.round(78 - 60 * fly + 5 * Math.sin(fly * 6 * Math.PI)), fy = Math.round(28 + 72 * fly);
-  for (let dx = -2; dx <= 2; dx++) putG(b, W, H, fx + 6 + dx, fy + 14, P.snow[2]);
-  for (let k = 0; k < 3; k++) {
-    const a = time * 0.9 + k * 2.1, sx = Math.round(84 + 4 * Math.cos(a)), sy = Math.round(140 + 1.2 * Math.sin(a));
-    putG(b, W, H, sx, sy - 1, P.skin); putG(b, W, H, sx, sy, P.jackets[(k + 2) % 5]);
-  }
-  for (const s of SKIERS) {
-    const p = PISTES[s.p], d = (s.off + time * s.speed) % p.len;
-    const [x, y, nx, ny] = pathAt(p, d), w = Math.sin(d * 0.35 + s.seed) * 1.5;
-    blitG(b, W, H, SKIERS_SPR[s.c], Math.round(x + nx * w), Math.round(y + ny * w));
-  }
-  for (const L of LIFTS) {
-    for (const off of L.strands) {
-      const down = off < 0;
-      for (let k = 0; k < L.n; k++) {
-        const ph = (time * L.speed + k / L.n) % 1, t = down ? 1 - ph : ph;
-        const [cx, cy] = cableAt(L, t);
-        if (L.type === 'teleski') {
-          const gx = Math.round(L.a[0] + (L.b[0] - L.a[0]) * t), gy = Math.round(L.a[1] + (L.b[1] - L.a[1]) * t);
-          drawPerche(b, W, H, cx, cy, gx, gy, k % 4 !== 3 ? SKIERS_SPR[k % 5] : null);
-        } else if (L.type === 'telesiege') {
-          drawChair(b, W, H, cx + off, cy, down ? k % 4 === 0 : k % 3 !== 2, P.jackets[k % 5]);
-        } else {
-          drawCabin(b, W, H, cx + off, cy);
-        }
-      }
+function drawLifts(b, T, time, running) {
+  for (const L of LIFTS) for (const off of L.strands) {
+    const down = off < 0;
+    for (let k = 0; k < L.n; k++) {
+      const ph = ((running ? time * L.speed : 0) + k / L.n) % 1, t = down ? 1 - ph : ph;
+      if (t < 0.05 || t > 0.95) continue;
+      const [cx, cy] = cableAt(L, t);
+      if (L.type === 'teleski') {
+        const gx = Math.round(L.a[0] + (L.b[0] - L.a[0]) * t), gy = Math.round(L.a[1] + (L.b[1] - L.a[1]) * t);
+        drawPerche(b, W, H, T, cx, cy, gx, gy, running && k % 4 !== 3 ? T.SK[k % 5] : null);
+      } else if (L.type === 'telesiege') drawChair(b, W, H, T, cx + off, cy, running && (down ? k % 4 === 0 : k % 3 !== 2), k);
+      else drawCabin(b, W, H, T, cx + off, cy);
     }
   }
-  blitG(b, W, H, SP.paraglider, fx, fy);
+}
+function drawRing(b, bw, bh, col, cx, cy, rx, ry, time) {
+  const n = Math.round(2 * Math.PI * Math.max(rx, ry)), shift = Math.floor(time * 10);
+  for (let k = 0; k < n; k++) {
+    if (((k + shift) % 6) >= 3) continue;
+    const a = k / n * 2 * Math.PI;
+    putG(b, bw, bh, Math.round(cx + Math.cos(a) * rx), Math.round(cy + Math.sin(a) * ry), col);
+  }
+}
+function drawPicto(b, bw, bh, T, ox, oy, key) {
+  const d = PICTOS[key], cat = CATS[d.cat](T);
+  for (let y = 0; y < 11; y++) for (let x = 0; x < 11; x++) {
+    const ex = x === 0 || x === 10, ey = y === 0 || y === 10;
+    if (ex && ey) continue;
+    putG(b, bw, bh, ox + x, oy + y, ex || ey ? T.ink : cat.fill);
+  }
+  d.rows.forEach((row, y) => [...row].forEach((ch, x) => { if (ch === 'k') putG(b, bw, bh, ox + 1 + x, oy + 1 + y, cat.stroke); }));
+}
+function drawDyn(b, phase, time) {
+  const T = THEMES[phase], day = phase === 'jour';
+  if (day) {
+    for (const s of SKIERS) {
+      const r = ROUTES[s.r];
+      let d = (s.off + time * 26 * s.speed) % r.len;
+      const sec = sectionAtRoute(r, d);
+      if (d < 10 || d > r.len - 10) continue;
+      const [x, y, nx, ny] = pathAt(r, d), w = Math.sin(d * 0.14 + s.seed) * (3 - sec.c * 0.5);
+      blitG(b, W, H, T.SK[s.c], Math.round(x + nx * w), Math.round(y + ny * w));
+    }
+  }
+  drawLifts(b, T, time, day);
+  if (day) {
+    const L = LIFTS[0], q = Math.round(9 + 6 * Math.sin(time / 4));
+    for (let k = 0; k < q; k++) blitG(b, W, H, T.SK[(k * 3) % 5], L.a[0] + 12 + (k % 8) * 8, L.a[1] + 6 + Math.floor(k / 8) * 11);
+    if (q > 10 && Math.floor(time * 2) % 2 === 0) drawPicto(b, W, H, T, L.a[0] + 34, L.a[1] - 26, 'bouchon');
+    [NODES.resto, NODES.vue, NODES.som].forEach((n, k) => {
+      const ph = (time * 0.45 + k * 0.33) % 1;
+      if (ph < 0.6) blitG(b, W, H, T.SP.heart, n.x + 16, Math.round(n.y - 24 - ph * 14));
+    });
+    const fly = (time / 30) % 1, fx = Math.round(NODES.para.x - 14 - 135 * fly + 12 * Math.sin(fly * 6 * Math.PI)), fy = Math.round(NODES.para.y - 22 + 220 * fly);
+    for (let dx = -6; dx <= 6; dx++) putG(b, W, H, fx + 18 + dx, fy + 34, T.snow[2]);
+    blitG(b, W, H, T.SP.paraglider, fx, fy);
+  } else {
+    [['a','c'], ['d','f'], ['g','h']].forEach((ids, k) => {
+      const r = ROUTES.find(rt => rt.ids.join() === ids.join()) || withLength(ids.flatMap(id => SECTIONS[id].path));
+      const d = (time * 14 + k * 61) % r.len, [x, y] = pathAt(r, d), sx = Math.round(x), sy = Math.round(y);
+      for (let rr = 1; rr <= 6; rr++) for (let dx = -rr - 2; dx <= rr + 2; dx++) if ((dx + rr + Math.floor(time * 8)) % 2 === 0) putG(b, W, H, sx + dx, sy + rr, T.light);
+      blitG(b, W, H, T.SP.dameuse, sx, sy);
+    });
+    if (Math.floor(time * 2) % 2 === 0) { drawPicto(b, W, H, T, 600, 70, 'avalanche'); const p = LIFTS[1].pylons[2]; drawPicto(b, W, H, T, p.x + 10, p.y - 40, 'entretien'); }
+  }
+  for (const n of Object.values(NODES)) if (n.libre) drawRing(b, W, H, day ? T.ink : T.light, n.x, n.cy, n.rx + 5, n.ry + 4, time);
 }
 
 /* ---------- pictogrammes ---------- */
 const CATS = {
-  rem: { fill: P.jackets[1], stroke: P.ink,     label: 'Remontées',    hex: PAL.jackets[1] },
-  sta: { fill: P.ink,        stroke: P.snow[0], label: 'Station',      hex: PAL.ink },
-  res: { fill: P.wood[0],    stroke: P.snow[0], label: 'Restauration', hex: PAL.wood[0] },
-  nat: { fill: P.jackets[3], stroke: P.ink,     label: 'Nature',       hex: PAL.jackets[3] },
-  act: { fill: P.jackets[4], stroke: P.snow[0], label: 'Activités',    hex: PAL.jackets[4] }
+  rem: T => ({ fill: T.jackets[1], stroke: T.ink,     label: 'Remontées' }),
+  sta: T => ({ fill: T.ink,        stroke: T.snow[0], label: 'Station' }),
+  res: T => ({ fill: T.wood[0],    stroke: T.snow[0], label: 'Restauration' }),
+  nat: T => ({ fill: T.jackets[3], stroke: T.ink,     label: 'Nature' }),
+  act: T => ({ fill: T.jackets[4], stroke: T.snow[0], label: 'Activités' }),
+  alr: T => ({ fill: T.jackets[0], stroke: T.ink,     label: 'Alertes' })
 };
 const PICTOS = {
   teleski:    { cat:'rem', rows:[".......kk",".....kk..","...kk....",".kk.k....","k...k....","....k....","...kkk...","..kkkkk..","...kkk..."] },
@@ -665,17 +823,11 @@ const PICTOS = {
   snowpark:   { cat:'act', rows:["......k..",".....kkk.","......k..",".........","......k..","....kkk..","..kkkkk..","kkkkkkk..","kkkkkkk.."] },
   chiens:     { cat:'act', rows:[".........","......k.k","k.....kkk",".k...kkkk","..kkkkkk.","..kkkkkk.","..k..k.k.","..k..k.k.","........."] },
   parapente:  { cat:'act', rows:["..kkkkk..",".kkkkkkk.","kk.....kk","k.k...k.k","...k.k...","....k....","...kkk...","....k....","...k.k..."] },
-  patinoire:  { cat:'act', rows:["..kk.....","..kk.....","..kkk....","..kkkkk..","..kkkkkk.",".kkkkkkk.","..k...k..","kkkkkkkkk","........."] }
+  patinoire:  { cat:'act', rows:["..kk.....","..kk.....","..kkk....","..kkkkk..","..kkkkkk.",".kkkkkkk.","..k...k..","kkkkkkkkk","........."] },
+  bouchon:    { cat:'alr', rows:[".........",".........",".k..k..k.",".k..k..k.","kkkkkkkkk","kkkkkkkkk",".k..k..k.","k.kk.kk.k","........."] },
+  avalanche:  { cat:'alr', rows:["k........","kk..k....","kkk...k..","kkkk.k..k","kkkkk..k.","kkkkkk...","kkkkkkk.k","kkkkkkkk.","kkkkkkkkk"] },
+  entretien:  { cat:'alr', rows:[".k.k.....",".k.k.....",".kkk.....","..kkk....","...kkk...","....kkk..",".....kkk.","......kk.","........."] }
 };
-function drawPicto(b, bw, bh, ox, oy, key) {
-  const d = PICTOS[key], cat = CATS[d.cat];
-  for (let y = 0; y < 11; y++) for (let x = 0; x < 11; x++) {
-    const edgeX = x === 0 || x === 10, edgeY = y === 0 || y === 10;
-    if (edgeX && edgeY) continue;
-    putG(b, bw, bh, ox + x, oy + y, edgeX || edgeY ? P.ink : cat.fill);
-  }
-  d.rows.forEach((row, y) => [...row].forEach((ch, x) => { if (ch === 'k') putG(b, bw, bh, ox + 1 + x, oy + 1 + y, cat.stroke); }));
-}
 
 /* ---------- planches ---------- */
 function paint(canvas, fn) {
@@ -683,74 +835,85 @@ function paint(canvas, fn) {
   fn(b, w, h);
   ctx.putImageData(img, 0, 0);
 }
-const fill = (b, c) => b.fill(c);
+const D = THEMES.jour;
 function liftPlate(b, bw, bh, type) {
-  fill(b, P.snow[1]);
-  const L = LIFTS.find(l => l.type === type), y0 = bh - 4, gx = 9, px = [32, 54];
-  if (type === 'teleski') for (let x = gx; x < bw; x++) { putG(b, bw, bh, x, y0 + 1, P.groomed); putG(b, bw, bh, x, y0 + 2, P.groomed); }
-  const g = L.gares[0];
-  blitG(b, bw, bh, SP[g], gx, y0);
-  px.forEach(x => blitG(b, bw, bh, SP[L.pylon], x, y0));
-  const cy = y0 - L.pole;
-  for (const off of L.strands) lineG(b, bw, bh, gx, cy + (off < 0 ? 1 : 0), bw - 1, cy + (off < 0 ? 1 : 0), P.cable);
-  [20, 43].forEach((x, k) => {
-    if (type === 'teleski') drawPerche(b, bw, bh, x, cy, x, y0 + 1, SKIERS_SPR[k + 1]);
-    else if (type === 'telesiege') drawChair(b, bw, bh, x, cy, true, P.jackets[k * 2]);
-    else drawCabin(b, bw, bh, x, cy);
+  b.fill(D.snow[1]);
+  const L = LIFTS.find(l => l.type === type), y0 = bh - 4, tx = 10, px = [62, 108];
+  if (type === 'teleski') for (let x = tx; x < bw; x++) for (let r = 1; r <= 3; r++) putG(b, bw, bh, x, y0 + r, D.groomed);
+  blitG(b, bw, bh, D.SP.terminal, tx, y0);
+  px.forEach(x => blitG(b, bw, bh, D.SP[L.pylon], x, y0));
+  const top = y0 - L.pole, start = y0 - 7;
+  for (const off of L.strands) { const dy = off < 0 ? 2 : 0; lineG(b, bw, bh, tx, start + dy, px[0], top + dy, D.cable); lineG(b, bw, bh, px[0], top + dy, bw - 1, top + dy, D.cable); }
+  [36, 86].forEach((x, k) => {
+    const cy = x < px[0] ? Math.round(start + (top - start) * (x - tx) / (px[0] - tx)) : top;
+    if (type === 'teleski') drawPerche(b, bw, bh, D, x, cy, x, y0 + 2, D.SK[k + 1]);
+    else if (type === 'telesiege') drawChair(b, bw, bh, D, x, cy, true, k * 2);
+    else drawCabin(b, bw, bh, D, x, cy);
   });
 }
-
-/* ---------- la page ---------- */
-const stage = document.getElementById('stage'), sctx = stage.getContext('2d');
-const simg = sctx.createImageData(W, H), sbuf = new Uint32Array(simg.data.buffer);
-function drawStage(time) { sbuf.set(BASE); drawDyn(sbuf, time); sctx.putImageData(simg, 0, 0); }
-
-paint(document.getElementById('icon'), (b) => {
-  for (let x = 0; x < 16; x++) { const g = 15 - Math.floor(x / 3); for (let y = g; y < 16; y++) b[y * 16 + x] = y === g ? P.snow[0] : y < g + 3 ? P.snow[1] : P.snow[2]; }
-  lineG(b, 16, 16, 0, 6, 15, 1, P.cable);
-  for (let x = 6; x <= 8; x++) b[4 * 16 + x] = P.ink;
-  for (let y = 5; y <= 10; y++) b[y * 16 + 7] = P.cable;
-  for (let x = 6; x <= 8; x++) { b[10 * 16 + x] = P.jackets[1]; b[12 * 16 + x] = P.jackets[1]; }
-  for (let x = 5; x <= 9; x++) b[11 * 16 + x] = P.jackets[1];
-});
-document.querySelectorAll('canvas[data-picto]').forEach(c => paint(c, (b, w, h) => drawPicto(b, w, h, 0, 0, c.dataset.picto)));
-document.querySelectorAll('canvas[data-lift]').forEach(c => paint(c, (b, w, h) => liftPlate(b, w, h, c.dataset.lift)));
-document.querySelectorAll('canvas[data-hub]').forEach(c => paint(c, (b, w, h) => { fill(b, P.snow[1]); for (let dx = -12; dx <= 17; dx++) putG(b, w, h, 20 + dx, 23, P.snow[2]); drawHub(b, w, h, 20, 21); }));
-
-const POI_CARDS = [
-  ['restaurant', 'restaurant', 'Restaurant d\'altitude', 'res', 'Un grand chalet et sa terrasse à parasols, souvent en haut d\'une remontée.', '11 × 9'],
-  ['cafe', 'cafe', 'Café', 'res', 'Une petite buvette fumante, au bord des pistes.', '7 × 7'],
-  ['cross', 'sommet', 'Sommet', 'nat', 'Une croix sur les rochers, au point le plus haut d\'un secteur.', '5 × 6'],
-  ['belvedere', 'vue', 'Point de vue', 'nat', 'Une longue-vue sur un ponton de bois.', '5 × 7'],
-  ['sled', 'luge', 'Luge', 'act', 'Une piste de luge damée, au départ d\'un panneau violet.', '7 × 5'],
-  ['sign', 'raquettes', 'Raquettes', 'act', 'Un sentier de traces dans la forêt, au départ d\'un panneau violet.', '5 × 6'],
-  ['kicker', 'snowpark', 'Snowpark', 'act', 'Un tremplin et une barre de slide, signalés par le même panneau.', '13 × 6'],
-  ['traineau', 'chiens', 'Chiens de traîneau', 'act', 'Un attelage de trois chiens et son musher, sur une boucle damée au pied des pistes.', '14 × 5'],
-  ['windsock', 'parapente', 'Parapente', 'act', 'Une manche à air sur un replat. Les voiles passent au-dessus du domaine, leur ombre sur la neige.', '5 × 7'],
-  ['rink', 'patinoire', 'Patinoire', 'act', 'Une patinoire bordée de bois, dans la station, où tournent les patineurs.', '13 × 7']
+const NODE_CARDS = [
+  ['station', 'station', 'Station', 'sta', 'Un seul nœud, quelle que soit sa taille : immeubles et chalets serrés sur leur plateforme. Les skieurs en partent le matin et y rentrent le soir.', '56 × 42'],
+  ['junction', 'junction', 'Intersection', 'jn', 'Un petit rond damé cerclé d\'encre et un poteau : une plaque par piste qui en part, à sa couleur.', '21 × 11'],
+  ['restaurant', 'restaurant', 'Restaurant d\'altitude', 'res', 'Un grand chalet et sa terrasse à parasols.', '25 × 19'],
+  ['cafe', 'cafe', 'Café', 'res', 'Une buvette fumante à l\'auvent rayé.', '13 × 15'],
+  ['sommet', 'sommet', 'Sommet', 'nat', 'Une croix sur les rochers.', '17 × 13'],
+  ['vue', 'vue', 'Point de vue', 'nat', 'Une longue-vue sur un ponton de bois.', '13 × 12'],
+  ['luge', 'luge', 'Luge', 'act', 'Une luge et son passager.', '17 × 10'],
+  ['snowpark', 'snowpark', 'Snowpark', 'act', 'Un tremplin et une barre de slide.', '25 × 10'],
+  ['windsock', 'parapente', 'Parapente', 'act', 'Une manche à air ; le jour, les voiles survolent le domaine.', '11 × 18'],
+  ['dogs', 'chiens', 'Chiens de traîneau', 'act', 'Un attelage de trois chiens et son musher.', '32 × 9'],
+  ['rink', 'patinoire', 'Patinoire', 'act', 'Une patinoire bordée de bois.', '27 × 16'],
+  ['raquettes', 'raquettes', 'Raquettes', 'act', 'Un panneau et des traces dans la neige.', '11 × 11']
 ];
-document.getElementById('poiCards').innerHTML = POI_CARDS.map(([s, picto, name, cat, desc, size]) => `
+document.getElementById('nodeCards').innerHTML = NODE_CARDS.map(([s, picto, name, cat, desc, size]) => {
+  const big = s === 'station', cw = big ? 96 : 48, ch = big ? 56 : 36;
+  const ico = picto === 'junction' ? `<canvas class="px" width="22" height="11" data-junction aria-hidden="true" style="width:44px;height:22px"></canvas>` : `<canvas class="px" width="11" height="11" data-picto="${picto}" aria-hidden="true"></canvas>`;
+  return `
   <article class="card">
-    <div class="plate"><canvas class="px" width="20" height="12" data-poi="${s}" style="width:160px" role="img" aria-label="${name} sur la carte"></canvas></div>
+    <div class="plate"><canvas class="px" width="${cw}" height="${ch}" data-node="${s}" style="width:${cw * 3}px" role="img" aria-label="${name} sur sa plateforme"></canvas></div>
     <div class="card-body">
-      <h3><canvas class="px" width="11" height="11" data-picto="${picto}" aria-hidden="true"></canvas>${name}</h3>
-      <span class="cat">${CATS[cat].label} · ${size} px</span>
+      <h3>${ico}${name}</h3>
+      <span class="cat">${cat === 'jn' ? 'Nœud de passage' : CATS[cat](D).label} · ${size} px</span>
       <p>${desc}</p>
     </div>
-  </article>`).join('');
-document.querySelectorAll('#poiCards canvas[data-picto]').forEach(c => paint(c, (b, w, h) => drawPicto(b, w, h, 0, 0, c.dataset.picto)));
-document.querySelectorAll('canvas[data-poi]').forEach(c => paint(c, (b, w, h) => {
-  fill(b, P.snow[1]);
-  const s = c.dataset.poi, x = 10, y = h - 2, spr = SP[s];
-  if (s === 'sled' || s === 'traineau') for (let xx = 0; xx < w; xx++) putG(b, w, h, xx, y + 1, P.groomed);
-  if (s === 'sign') { for (let k = 0; k < 4; k++) { putG(b, w, h, x + 4 + k * 2, y - (k % 2), P.snow[2]); } }
-  if (spr.w <= 5) { putG(b, w, h, x + 1, y, P.snow[3]); putG(b, w, h, x + 2, y, P.snow[3]); }
-  else for (let dx = -(spr.w >> 1) + 2; dx <= (spr.w >> 1) + 2; dx++) putG(b, w, h, x + dx, y + 1, P.snow[2]);
-  blitG(b, w, h, spr, x, y);
+  </article>`;
+}).join('');
+document.querySelectorAll('canvas[data-node]').forEach(c => paint(c, (b, w, h) => {
+  b.fill(D.snow[1]);
+  const s = c.dataset.node, x = w >> 1;
+  if (s === 'station') { drawPlatform(b, w, h, D, x, h - 14, 40, 13); drawStation(b, w, h, D, x, h - 10); return; }
+  if (s === 'junction') {
+    for (let yy = 0; yy < h; yy++) for (let xx = 0; xx < w; xx++) { const dl = Math.abs((xx - 6) - (yy - 4) * 0.9); if (dl < 6) b[yy * w + xx] = dl < 4.4 ? D.groomed : D.piste[2]; const dr = Math.abs((xx - 40) + (yy - 4) * 0.9); if (dr < 6 && yy > 14) b[yy * w + xx] = dr < 4.4 ? D.groomed : D.piste[1]; }
+    drawPlatform(b, w, h, D, x - 4, h - 12, 10, 5, D.ink); drawSignpost(b, w, h, D, x + 7, h - 11, [D.piste[2], D.piste[1]]); return;
+  }
+  const y = h - 6;
+  drawPlatform(b, w, h, D, x, y - 2, 19, 7);
+  if (s === 'raquettes') for (let k = 0; k < 7; k++) putG(b, w, h, x + 7 + k * 3, y + 4 - (k % 2), D.snow[3]);
+  blitG(b, w, h, D.SP[s], x, y);
 }));
+const paintPictos = root => root.querySelectorAll('canvas[data-picto]').forEach(c => paint(c, (b, w, h) => drawPicto(b, w, h, D, 0, 0, c.dataset.picto)));
+paintPictos(document);
+const junctionIcon = (b, w, h) => {
+  drawPlatform(b, w, h, D, 7, 8, 6, 2, D.ink);
+  for (let y = 1; y <= 9; y++) { putG(b, w, h, 14, y, D.wood[0]); putG(b, w, h, 15, y, D.wood[1]); }
+  for (let y = 1; y <= 3; y++) for (let x = 16; x <= 20; x++) putG(b, w, h, x, y, D.piste[1]);
+  putG(b, w, h, 21, 2, D.piste[1]);
+};
+document.querySelectorAll('canvas[data-junction]').forEach(c => paint(c, junctionIcon));
+paint(document.getElementById('lgJunction'), junctionIcon);
+document.querySelectorAll('canvas[data-lift]').forEach(c => paint(c, (b, w, h) => liftPlate(b, w, h, c.dataset.lift)));
+paint(document.getElementById('lgHeart'), (b, w, h) => blitG(b, w, h, D.SP.heart, 4, 7));
+paint(document.getElementById('lgRing'), (b, w, h) => drawRing(b, w, h, D.ink, 11, 5, 9, 4, 0));
+paint(document.getElementById('icon'), b => {
+  for (let x = 0; x < 16; x++) { const g = 15 - Math.floor(x / 3); for (let y = g; y < 16; y++) b[y * 16 + x] = y === g ? D.snow[0] : y < g + 3 ? D.snow[1] : D.snow[2]; }
+  lineG(b, 16, 16, 0, 6, 15, 1, D.cable);
+  for (let x = 6; x <= 8; x++) b[4 * 16 + x] = D.ink;
+  for (let y = 5; y <= 10; y++) b[y * 16 + 7] = D.cable;
+  for (let x = 6; x <= 8; x++) { b[10 * 16 + x] = D.jackets[1]; b[12 * 16 + x] = D.jackets[1]; }
+  for (let x = 5; x <= 9; x++) b[11 * 16 + x] = D.jackets[1];
+});
 
-document.getElementById('cats').innerHTML = Object.values(CATS).map(c => `<span><i style="background:${c.hex}"></i>${c.label}</span>`).join('');
-document.getElementById('pal').innerHTML = PAL_LIST.map(([id, name, hex]) => `<div><span style="background:${hex}"></span><p>${name}<small>${id}</small></p><code>${hex}</code></div>`).join('');
+document.getElementById('daynight').innerHTML = ROLES.map(([id, name, f]) => `<div><span style="background:${f(DAY)}" title="${f(DAY)}"></span><span style="background:${f(NIGHT)}" title="${f(NIGHT)}"></span><p>${name}<small>${id} · ${f(DAY)} · ${f(NIGHT)}</small></p></div>`).join('');
 
 const SHAPES = {
   rond: ["..XXX..",".XXXXX.","XXXXXXX","XXXXXXX","XXXXXXX",".XXXXX.","..XXX.."],
@@ -758,60 +921,96 @@ const SHAPES = {
   tri:  ["...X...","..XXX..","..XXX..",".XXXXX.",".XXXXX.","XXXXXXX","......."],
   los:  ["...X...","..XXX..",".XXXXX.","XXXXXXX",".XXXXX.","..XXX..","...X..."]
 };
-const PISTE_INFO = [['Verte', 'Très facile', 'rond'], ['Bleue', 'Facile', 'carre'], ['Rouge', 'Difficile', 'tri'], ['Noire', 'Très difficile', 'los']];
+const PISTE_INFO = [['Verte', 'pente la plus forte sous 25 %', 'rond'], ['Bleue', 'de 25 à 40 %', 'carre'], ['Rouge', 'de 40 à 60 %', 'tri'], ['Noire', '60 % et plus', 'los']];
 const shapeCanvas = (s, k) => `<canvas class="px" width="7" height="7" data-shape="${s}" data-k="${k}" aria-hidden="true"></canvas>`;
 document.getElementById('pisteList').innerHTML = PISTE_INFO.map(([n, d, s], k) => `<li>${shapeCanvas(s, k)}<span>${n}<small>${d}</small></span></li>`).join('');
 document.getElementById('lgPistes').innerHTML = PISTE_INFO.map(([n, , s], k) => `<li><span class="shape">${shapeCanvas(s, k)}</span>${n}</li>`).join('');
 document.querySelectorAll('canvas[data-shape]').forEach(c => paint(c, b => {
-  SHAPES[c.dataset.shape].forEach((row, y) => [...row].forEach((ch, x) => { if (ch === 'X') b[y * 7 + x] = P.piste[+c.dataset.k]; }));
+  SHAPES[c.dataset.shape].forEach((row, y) => [...row].forEach((ch, x) => { if (ch === 'X') b[y * 7 + x] = D.piste[+c.dataset.k]; }));
 }));
 
-const SIZES = [['skier', 16, 'Skieur · 3 × 5'], ['tree', 16, 'Sapin · 5 × 7'], ['chalet', 16, 'Chalet · 9 × 8'], ['pylons', 24, 'Pylônes · 7, 9 et 11 de haut'], ['case', 16, 'Case · 8 × 8'], ['picto', 16, 'Pictogramme · 11 × 11']];
+const SIZES = [['skier', 48, 'Skieur · 7 × 10'], ['tree', 48, 'Sapins · 11 × 16 et 7 × 11'], ['chalet', 48, 'Chalet · 15 × 14'], ['pylons', 72, 'Pylônes · 18, 24 et 30 de haut'], ['case', 48, 'Case · 24 × 24'], ['picto', 48, 'Pictogramme · 11 × 11']];
 const sizesEl = document.getElementById('sizes');
-sizesEl.innerHTML = SIZES.map(([k, w, label]) => `<figure><canvas class="px" width="${w}" height="16" data-size="${k}" aria-hidden="true"></canvas><figcaption>${label}</figcaption></figure>`).join('');
+sizesEl.innerHTML = SIZES.map(([k, w, label]) => `<figure><canvas class="px" width="${w}" height="36" data-size="${k}" style="width:${w * 3}px;height:108px" aria-hidden="true"></canvas><figcaption>${label}</figcaption></figure>`).join('');
 sizesEl.querySelectorAll('canvas').forEach(c => paint(c, (b, w, h) => {
-  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) b[y * w + x] = ((x >> 3) + (y >> 3)) % 2 ? P.snow[1] : P.snow[0];
-  const k = c.dataset.size;
-  if (k === 'skier') blitG(b, w, h, SKIERS_SPR[0], 8, 13);
-  else if (k === 'tree' || k === 'chalet') blitG(b, w, h, SP[k], 8, 13);
-  else if (k === 'pylons') { blitG(b, w, h, SP.pylonSki, 4, 14); blitG(b, w, h, SP.pylonSiege, 12, 14); blitG(b, w, h, SP.pylonCabine, 20, 14); }
-  else if (k === 'picto') drawPicto(b, w, h, 2, 2, 'telecabine');
-  else for (let i = 0; i < 8; i++) { b[4 * w + 4 + i] = P.ink; b[11 * w + 4 + i] = P.ink; b[(4 + i) * w + 4] = P.ink; b[(4 + i) * w + 11] = P.ink; }
-}));
-sizesEl.querySelectorAll('canvas').forEach(c => { c.style.width = (c.width * 6) + 'px'; });
-
-const tip = document.getElementById('tip');
-document.querySelectorAll('.tool').forEach(b => b.addEventListener('click', () => {
-  document.querySelectorAll('.tool').forEach(o => { o.classList.toggle('on', o === b); o.setAttribute('aria-pressed', String(o === b)); });
-  tip.textContent = b.dataset.tip;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) b[y * w + x] = (Math.floor(x / 24) + Math.floor(y / 24)) % 2 ? D.snow[1] : D.snow[0];
+  const k = c.dataset.size, by = 32;
+  if (k === 'skier') blitG(b, w, h, D.SK[0], 24, by);
+  else if (k === 'tree') { blitG(b, w, h, D.SP.tree, 16, by); blitG(b, w, h, D.SP.treeS, 34, by); }
+  else if (k === 'chalet') blitG(b, w, h, D.SP.chalet, 24, by);
+  else if (k === 'pylons') { blitG(b, w, h, D.SP.pylonSki, 10, by + 2); blitG(b, w, h, D.SP.pylonSiege, 32, by + 2); blitG(b, w, h, D.SP.pylonCabine, 58, by + 2); }
+  else if (k === 'picto') drawPicto(b, w, h, D, 18, 12, 'telecabine');
+  else for (let i = 0; i < 24; i++) { b[6 * w + 12 + i] = D.ink; b[29 * w + 12 + i] = D.ink; b[(6 + i) * w + 12] = D.ink; b[(6 + i) * w + 35] = D.ink; }
 }));
 
-const hDay = document.getElementById('hDay'), hTime = document.getElementById('hTime'), hSk = document.getElementById('hSk'), hCash = document.getElementById('hCash');
+/* ---------- le banc : jour et nuit ---------- */
+const TOOLS = {
+  jour: [['Piste', 'Tracer : glisser d\'un nœud vers un nœud plus bas'], ['Remontée', 'Relier un nœud à un nœud plus haut'], ['Lieu', 'Poser un café, un restaurant, une activité…']],
+  nuit: [['Dameuse', 'Damer cette nuit · 4 pistes'], ['Entretien', 'Réviser le télésiège · 640 €'], ['Déclencher', 'Purger la pente la plus raide · 300 €']]
+};
+const state = { phase: 'jour' };
+const root = document.documentElement, hud = document.getElementById('hud'), toolset = document.getElementById('toolset'), tip = document.getElementById('tip');
+function setTools() {
+  toolset.innerHTML = TOOLS[state.phase].map(([n, t], k) => `<button type="button" class="tool" data-tip="${t}" aria-pressed="${k === 0}">${n}</button>`).join('');
+  tip.textContent = TOOLS[state.phase][0][1];
+  toolset.querySelectorAll('.tool').forEach(b => b.addEventListener('click', () => {
+    toolset.querySelectorAll('.tool').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
+    tip.textContent = b.dataset.tip;
+  }));
+}
+function setPhase(phase) {
+  state.phase = phase;
+  const p = phase === 'jour' ? DAY : NIGHT;
+  root.style.setProperty('--g-ink', p.ink); root.style.setProperty('--g-snow', phase === 'jour' ? p.snow[0] : '#e8ebff');
+  root.style.setProperty('--g-snow1', phase === 'jour' ? p.snow[1] : '#c9cdf0'); root.style.setProperty('--g-light', p.light);
+  document.querySelectorAll('[data-phase]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.phase === phase)));
+  setTools(); hudKey = ''; drawStage(now()); updateHud(now());
+}
+document.querySelectorAll('[data-phase]').forEach(b => b.addEventListener('click', () => setPhase(b.dataset.phase)));
+
+const fmt = n => n.toLocaleString('fr-FR');
+const clock = m => String(Math.floor(m / 60) % 24).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
+let hudKey = '';
 function updateHud(time) {
-  const m = 40 + Math.floor(time * 2), mm = 540 + m % 480;
-  hDay.textContent = 12 + Math.floor(m / 480);
-  hTime.textContent = String(Math.floor(mm / 60)).padStart(2, '0') + ':' + String(mm % 60).padStart(2, '0');
-  hSk.textContent = 180 + Math.round(40 * Math.sin(time / 7));
-  hCash.textContent = (38520 + Math.floor(time * 1.5) * 24).toLocaleString('fr-FR') + ' €';
+  let items;
+  if (state.phase === 'jour') {
+    const m = 510 + Math.floor(time * 2) % 510;
+    items = [['Jour', '12'], ['', clock(m)], ['Skieurs', String(200 + Math.round(30 * Math.sin(time / 7)))], ['Satisfaction', (80 + Math.round(4 * Math.sin(time / 5))) + ' %'], ['Popularité', '4,2/5'], ['Caisse', fmt(38520 + Math.floor(time * 1.5) * 24) + ' €']];
+  } else {
+    const m = 1140 + Math.floor(time * 2) % 660;
+    items = [['Nuit', '12'], ['', clock(m)], ['Dameuses', '3'], ['Avalanche', 'risque 3/5'], ['Entretien', '−640 €'], ['Caisse', fmt(37880 - Math.floor(time * 0.5) * 12) + ' €']];
+  }
+  const key = items.map(i => i[1]).join('|');
+  if (key === hudKey) return;
+  hudKey = key;
+  hud.innerHTML = items.map(([l, v]) => `<span>${l ? `<i>${l}</i>` : ''}<b>${v}</b></span>`).join('');
 }
 
-const game = document.getElementById('game'), benchMain = document.getElementById('benchMain');
+const stage = document.getElementById('stage'), sctx = stage.getContext('2d');
+const simg = sctx.createImageData(W, H), sbuf = new Uint32Array(simg.data.buffer);
+function drawStage(time) { sbuf.set(base(state.phase)); drawDyn(sbuf, state.phase, time); sctx.putImageData(simg, 0, 0); }
+
+/* Agrandissement : un nombre entier de pixels de l'écran par pixel du jeu, sinon toute la largeur sur les petits écrans. */
+const game = document.getElementById('game');
 function fit() {
-  const avail = benchMain.clientWidth - 8, s = Math.min(4, Math.floor(avail / W));
-  game.style.width = ((s >= 2 ? W * s : avail) + 8) + 'px';
+  const dpr = window.devicePixelRatio || 1, avail = Math.min(document.documentElement.clientWidth - 32, 1600) - 8;
+  const s = Math.floor(avail * dpr / W), css = W * s / dpr;
+  game.style.width = ((s >= 1 && css >= Math.min(avail, W)) ? css : avail) + 8 + 'px';
 }
-new ResizeObserver(fit).observe(benchMain);
+window.addEventListener('resize', fit);
 fit();
 
 const rm = matchMedia('(prefers-reduced-motion: reduce)');
 const start = performance.now();
+const now = () => rm.matches ? 6 : (performance.now() - start) / 1000;
+setPhase('jour');
 let last = -1;
 function loop(ts) {
   const t = (ts - start) / 1000;
   if (t - last >= 1 / 12) { last = t; drawStage(t); updateHud(t); }
   requestAnimationFrame(loop);
 }
-if (rm.matches) { drawStage(6); updateHud(0); } else requestAnimationFrame(loop);
+if (!rm.matches) requestAnimationFrame(loop);
 })();
 </script>
 </body>
