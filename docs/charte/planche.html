@@ -145,7 +145,7 @@ h2{font-size:24px;font-weight:700;letter-spacing:-.01em}
           <span class="tip" id="tip">Tracer : glisser du haut vers le bas</span>
         </div>
       </div>
-      <p class="note">La station d'essai : un téléski, un télésiège, une télécabine, quatre pistes, la station au pied du domaine et sept lieux. Le décor est généré pour juger l'ensemble ; les dessins définitifs viendront ensuite.</p>
+      <p class="note">La station d'essai : un téléski, un télésiège, une télécabine, quatre pistes, la station au pied du domaine et dix lieux. Le décor est généré pour juger l'ensemble ; les dessins définitifs viendront ensuite.</p>
     </div>
 
     <aside class="legend" aria-labelledby="leg-t">
@@ -171,6 +171,9 @@ h2{font-size:24px;font-weight:700;letter-spacing:-.01em}
         <li><canvas class="px" width="11" height="11" data-picto="luge" aria-hidden="true"></canvas>Luge</li>
         <li><canvas class="px" width="11" height="11" data-picto="raquettes" aria-hidden="true"></canvas>Raquettes</li>
         <li><canvas class="px" width="11" height="11" data-picto="snowpark" aria-hidden="true"></canvas>Snowpark</li>
+        <li><canvas class="px" width="11" height="11" data-picto="chiens" aria-hidden="true"></canvas>Chiens de traîneau</li>
+        <li><canvas class="px" width="11" height="11" data-picto="parapente" aria-hidden="true"></canvas>Parapente</li>
+        <li><canvas class="px" width="11" height="11" data-picto="patinoire" aria-hidden="true"></canvas>Patinoire</li>
       </ul></div>
     </aside>
   </section>
@@ -388,7 +391,7 @@ const mapper = over => ch => ({
   a: P.pine[0], b: P.pine[1], c: P.pine[2], t: P.trunk,
   r: P.roof, w: P.wood[0], W: P.wood[1], d: P.ink, k: P.cable, l: P.light, f: P.skin, p: P.ink,
   g: P.rock[0], G: P.rock[1], x: P.rock[2],
-  y: P.jackets[1], o: P.jackets[0], v: P.jackets[4], B: P.sky[1],
+  y: P.jackets[1], o: P.jackets[0], v: P.jackets[4], m: P.jackets[2], B: P.sky[1], I: P.sky[2],
   h: over ? over.h : P.jackets[0], j: over ? over.j : P.jackets[1]
 })[ch] || 0;
 
@@ -411,6 +414,10 @@ const SPR = {
   sled:        ["..h....","..f....",".jjj...","wwwwww.","kkkkkkk"],
   kicker:      [".........ss..","........sSSn.",".......sSSSn.","kkkkk.sSSSSnN","k...k.nnnnnnN","k...k........"],
   sign:        ["vvvvv","vsvsv","vvvvv","..W..","..W..","..W.."],
+  traineau:    ["...........h..","...........f..","gg..gg..gg.jjW","GGGkGGGkGGGjjW","G.G.G.G.G.Gkkk"],
+  windsock:    ["kosos","k.so.","k....","k....","k....","k....","k...."],
+  rink:        [".WWWWWWWWWWW.","WIIsIIIIIIIIW","WIIIIIsIIIIIW","WIIIIIIIIIsIW","WIsIIIIIIIIIW","WIIIIIIIsIIIW",".WWWWWWWWWWW."],
+  paraglider:  [".mmmmm.","mm...mm",".k...k.","..k.k..","...j...","...p..."],
   skier:       [".h.",".f.","jjj",".p.","kkk"]
 };
 function compileSpr(rows, map) {
@@ -503,13 +510,17 @@ const POIS = [
   { x:100, y:52,  s:'belvedere' },
   { x:180, y:102, s:'kicker' },     { x:170, y:100, s:'sign' },
   { x:34,  y:112, s:'sign' },       { x:44,  y:139, s:'sled' },
-  { x:14,  y:96,  s:'sign' }
+  { x:14,  y:96,  s:'sign' },
+  { x:212, y:125, s:'traineau' },   { x:188, y:126, s:'sign' },
+  { x:76,  y:36,  s:'windsock' },   { x:70,  y:38,  s:'sign' },
+  { x:84,  y:143, s:'rink' }
 ];
+const TRAINEAU = Array.from({ length: 160 }, (_, k) => [210 + 18 * Math.cos(k / 160 * 2 * Math.PI), 129 + 5 * Math.sin(k / 160 * 2 * Math.PI)]);
 const CHALETS = [[20,142],[52,143],[170,141],[188,139],[206,142],[222,140]];
 
 const pd = new Float32Array(W * H).fill(99), pid = new Int8Array(W * H).fill(-1);
 PISTES.forEach((p, k) => stamp(p.path, 4, pd, pid, k));
-const ld = new Float32Array(W * H).fill(99); stamp(LUGE, 2, ld);
+const ld = new Float32Array(W * H).fill(99); stamp(LUGE, 2, ld); stamp(TRAINEAU, 2, ld);
 const rd = new Float32Array(W * H).fill(99); stamp(RAQUETTES, 3, rd);
 
 const mat = new Uint8Array(W * H), lvl = new Uint8Array(W * H), con = new Uint8Array(W * H);
@@ -601,6 +612,12 @@ function cableAt(L, t) {
   const l = pts[pts.length - 1]; return [l.x, l.y];
 }
 function drawDyn(b, time) {
+  const fly = (time / 40) % 1, fx = Math.round(78 - 60 * fly + 5 * Math.sin(fly * 6 * Math.PI)), fy = Math.round(28 + 72 * fly);
+  for (let dx = -2; dx <= 2; dx++) putG(b, W, H, fx + 6 + dx, fy + 14, P.snow[2]);
+  for (let k = 0; k < 3; k++) {
+    const a = time * 0.9 + k * 2.1, sx = Math.round(84 + 4 * Math.cos(a)), sy = Math.round(140 + 1.2 * Math.sin(a));
+    putG(b, W, H, sx, sy - 1, P.skin); putG(b, W, H, sx, sy, P.jackets[(k + 2) % 5]);
+  }
   for (const s of SKIERS) {
     const p = PISTES[s.p], d = (s.off + time * s.speed) % p.len;
     const [x, y, nx, ny] = pathAt(p, d), w = Math.sin(d * 0.35 + s.seed) * 1.5;
@@ -623,6 +640,7 @@ function drawDyn(b, time) {
       }
     }
   }
+  blitG(b, W, H, SP.paraglider, fx, fy);
 }
 
 /* ---------- pictogrammes ---------- */
@@ -644,7 +662,10 @@ const PICTOS = {
   vue:        { cat:'nat', rows:[".kk...kk.",".kk...kk.","kkkkkkkkk","kkkk.kkkk","kkk...kkk","k..k.k..k","k..k.k..k","kkkk.kkkk","........."] },
   luge:       { cat:'act', rows:[".........",".........",".........",".kkkkkkk.",".kkkkkkk.","..k...k..","..k...k.k","kkkkkkkk.","........."] },
   raquettes:  { cat:'act', rows:["..kkkkk..",".k.k.k.k.",".kkkkkkk.",".k.k.k.k.",".kkkkkkk.","..k.k.k..","...kkk...","....k....","....k...."] },
-  snowpark:   { cat:'act', rows:["......k..",".....kkk.","......k..",".........","......k..","....kkk..","..kkkkk..","kkkkkkk..","kkkkkkk.."] }
+  snowpark:   { cat:'act', rows:["......k..",".....kkk.","......k..",".........","......k..","....kkk..","..kkkkk..","kkkkkkk..","kkkkkkk.."] },
+  chiens:     { cat:'act', rows:[".........","......k.k","k.....kkk",".k...kkkk","..kkkkkk.","..kkkkkk.","..k..k.k.","..k..k.k.","........."] },
+  parapente:  { cat:'act', rows:["..kkkkk..",".kkkkkkk.","kk.....kk","k.k...k.k","...k.k...","....k....","...kkk...","....k....","...k.k..."] },
+  patinoire:  { cat:'act', rows:["..kk.....","..kk.....","..kkk....","..kkkkk..","..kkkkkk.",".kkkkkkk.","..k...k..","kkkkkkkkk","........."] }
 };
 function drawPicto(b, bw, bh, ox, oy, key) {
   const d = PICTOS[key], cat = CATS[d.cat];
@@ -703,7 +724,10 @@ const POI_CARDS = [
   ['belvedere', 'vue', 'Point de vue', 'nat', 'Une longue-vue sur un ponton de bois.', '5 × 7'],
   ['sled', 'luge', 'Luge', 'act', 'Une piste de luge damée, au départ d\'un panneau violet.', '7 × 5'],
   ['sign', 'raquettes', 'Raquettes', 'act', 'Un sentier de traces dans la forêt, au départ d\'un panneau violet.', '5 × 6'],
-  ['kicker', 'snowpark', 'Snowpark', 'act', 'Un tremplin et une barre de slide, signalés par le même panneau.', '13 × 6']
+  ['kicker', 'snowpark', 'Snowpark', 'act', 'Un tremplin et une barre de slide, signalés par le même panneau.', '13 × 6'],
+  ['traineau', 'chiens', 'Chiens de traîneau', 'act', 'Un attelage de trois chiens et son musher, sur une boucle damée au pied des pistes.', '14 × 5'],
+  ['windsock', 'parapente', 'Parapente', 'act', 'Une manche à air sur un replat. Les voiles passent au-dessus du domaine, leur ombre sur la neige.', '5 × 7'],
+  ['rink', 'patinoire', 'Patinoire', 'act', 'Une patinoire bordée de bois, dans la station, où tournent les patineurs.', '13 × 7']
 ];
 document.getElementById('poiCards').innerHTML = POI_CARDS.map(([s, picto, name, cat, desc, size]) => `
   <article class="card">
@@ -718,7 +742,7 @@ document.querySelectorAll('#poiCards canvas[data-picto]').forEach(c => paint(c, 
 document.querySelectorAll('canvas[data-poi]').forEach(c => paint(c, (b, w, h) => {
   fill(b, P.snow[1]);
   const s = c.dataset.poi, x = 10, y = h - 2, spr = SP[s];
-  if (s === 'sled') for (let xx = 0; xx < w; xx++) putG(b, w, h, xx, y + 1, P.groomed);
+  if (s === 'sled' || s === 'traineau') for (let xx = 0; xx < w; xx++) putG(b, w, h, xx, y + 1, P.groomed);
   if (s === 'sign') { for (let k = 0; k < 4; k++) { putG(b, w, h, x + 4 + k * 2, y - (k % 2), P.snow[2]); } }
   if (spr.w <= 5) { putG(b, w, h, x + 1, y, P.snow[3]); putG(b, w, h, x + 2, y, P.snow[3]); }
   else for (let dx = -(spr.w >> 1) + 2; dx <= (spr.w >> 1) + 2; dx++) putG(b, w, h, x + dx, y + 1, P.snow[2]);

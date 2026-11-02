@@ -126,6 +126,8 @@ du bas, au milieu : c'est le point où l'objet touche la neige.
 | Croix de sommet | 5 × 6 |
 | Longue-vue | 5 × 7 |
 | Luge / panneau d'activité / snowpark | 7 × 5 / 5 × 6 / 13 × 6 |
+| Attelage de chiens / manche à air / patinoire | 14 × 5 / 5 × 7 / 13 × 7 |
+| Parapente en vol | 7 × 6 |
 | Pictogramme | 11 × 11 |
 
 ## Les remontées
@@ -144,7 +146,7 @@ Le pylône suffit à reconnaître le type, même quand aucun véhicule ne passe.
 
 ## La station et les lieux
 
-![La station et les sept lieux, chacun avec son pictogramme](charte/lieux.png)
+![La station et les dix lieux, chacun avec son pictogramme](charte/lieux.png)
 
 Sur la carte, chaque lieu est dessiné. Dans l'interface (légende, bulles,
 menus), il est représenté par son **pictogramme** : une pastille de 11 × 11,
@@ -161,6 +163,9 @@ encre ou en blanc selon le contraste.
 | Luge | Activités | Une piste de luge damée, une luge, un panneau violet |
 | Raquettes | Activités | Un sentier de traces dans la forêt, un panneau violet |
 | Snowpark | Activités | Un tremplin et une barre de slide, un panneau violet |
+| Chiens de traîneau | Activités | Un attelage de trois chiens et son musher sur une boucle damée, un panneau violet |
+| Parapente | Activités | Une manche à air sur un replat, un panneau violet ; les voiles passent au-dessus du domaine, leur ombre sur la neige |
+| Patinoire | Activités | Une patinoire bordée de bois, dans la station, où tournent les patineurs |
 
 Les remontées ont aussi leur pictogramme (famille jaune) : une perche, un
 siège, une cabine.
