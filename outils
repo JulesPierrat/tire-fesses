@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# Les outils du jeu, lancés dans Docker : pas besoin de node sur la machine.
+# Voir docs/TECHNIQUE.md, « Les commandes ».
+set -euo pipefail
+
+IMAGE=mcr.microsoft.com/playwright:v1.58.2-noble
+cd "$(dirname "$0")"
+
+dans_docker() {
+  local tty=()
+  [ -t 0 ] && [ -t 1 ] && tty=(-it)
+  docker run --rm "${tty[@]}" --init \
+    --user "$(id -u):$(id -g)" -e HOME=/tmp -e PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 \
+    -v "$PWD:/jeu" -w /jeu "$@"
+}
+
+installer() { dans_docker "$IMAGE" npm ci; }
+
+aide() {
+  cat <<'FIN'
+Utilisation : ./outils <commande>
+
+  installer    installe les dépendances (npm ci)
+  lancer       lance le jeu sur http://localhost:5173, rechargé à chaque changement
+  verifier     vérifie les types et lance les tests de la logique
+  navigateur   fabrique le jeu et le teste dans un vrai navigateur
+  fabriquer    fabrique la version à mettre en ligne, dans dist/
+FIN
+}
+
+commande="${1:-}"
+case "$commande" in
+  installer|lancer|verifier|navigateur|fabriquer) ;;
+  *) aide; exit 1 ;;
+esac
+
+if [ "$commande" != installer ] && [ ! -d node_modules ]; then
+  installer
+fi
+
+case "$commande" in
+  installer)  installer ;;
+  lancer)     dans_docker -p 5173:5173 "$IMAGE" npm run dev ;;
+  verifier)   dans_docker "$IMAGE" npm run check ;;
+  navigateur) dans_docker --ipc=host "$IMAGE" npm run e2e ;;
+  fabriquer)  dans_docker "$IMAGE" npm run build ;;
+esac

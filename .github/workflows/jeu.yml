@@ -1,0 +1,56 @@
+# Vérifie chaque pull request ; sur main, met aussi le jeu en ligne sur GitHub Pages.
+name: Jeu
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: jeu-${{ github.ref }}
+  # Une mise en ligne commencée va jusqu'au bout ; une vérification de PR dépassée s'arrête.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  verifier:
+    runs-on: ubuntu-latest
+    # La même image que ./outils : mêmes versions de Node et de Chromium.
+    container:
+      image: mcr.microsoft.com/playwright:v1.58.2-noble
+      options: --user 1001
+    env:
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+    steps:
+      - uses: actions/checkout@v7
+      - run: npm ci
+      - name: Types et tests de la logique
+        run: npm run check
+      - name: Tests dans le navigateur (fabrique aussi dist/)
+        run: npm run e2e
+      - if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: tests-navigateur
+          path: test-results/
+          retention-days: 7
+      - if: github.event_name == 'push'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  publier:
+    if: github.event_name == 'push'
+    needs: verifier
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploiement.outputs.page_url }}
+    steps:
+      - id: deploiement
+        uses: actions/deploy-pages@v5
