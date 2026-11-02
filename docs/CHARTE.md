@@ -21,7 +21,7 @@ définitifs viendront ensuite, dans ces règles.
 | | Choix | Pourquoi |
 |---|---|---|
 | Point de vue | **Vue de dessus** | Tracer une piste à la souris ou au doigt est simple et précis, tout le domaine se voit d'un coup, et chaque objet n'a qu'un dessin. |
-| Résolution | **Case de 16 × 16**, carte de base de 480 × 300 px, agrandie ×2 | Assez de pixels pour qu'un chalet ait des fenêtres et un sapin de la neige sur ses branches. |
+| Résolution | **Case de 24 × 24**, carte de base de 720 × 450 px, agrandie d'un nombre entier de pixels | Assez de pixels pour qu'un skieur ait un masque, un chalet des fenêtres et une porte, un sapin de la neige sur chaque étage de branches. |
 | Palette | **Grand beau** le jour, sa **jumelle de nuit** la nuit | Les quatre couleurs de piste ressortent sur la neige ; la nuit garde les mêmes dessins. |
 | Police | **Pixelify Sans** | Une police pixel avec de vraies minuscules et tous les accents, lisible même en phrases. |
 
@@ -37,6 +37,13 @@ regard.
 - **Deux sortes de liens.** Les remontées montent d'un nœud à un autre ; les
   pistes descendent, en couleur de difficulté. Rien ne se pose au milieu de
   nulle part.
+- **Les intersections.** Là où des pistes se séparent ou se rejoignent, il y a
+  une intersection : un petit rond damé cerclé d'encre et un poteau dont les
+  plaques ont la couleur des pistes qui en partent. C'est un nœud comme les
+  autres, sans rien à visiter.
+- **Un tronçon, une couleur.** Une piste va d'un nœud ou d'une intersection au
+  suivant, sans croisement entre les deux. Elle a une seule couleur sur toute
+  sa longueur : celle de son passage le plus raide (voir *Les pistes*).
 - **Plusieurs stations.** Un domaine peut relier plusieurs stations. Un nœud
   entouré de **pointillés** qui tournent n'est pas encore relié au réseau.
 - **Des cartes qui grandissent.** La carte de base tient sur un écran (30 × 19
@@ -54,33 +61,35 @@ famille, symbole en encre ou en blanc selon le contraste.
 
 | Nœud | Famille | Sur la carte | Taille (px) |
 |---|---|---|---|
-| Station | Station | Un immeuble en béton, un immeuble en bois et trois chalets serrés, fenêtres allumées | 34 × 26 |
-| Restaurant d'altitude | Restauration | Un grand chalet et sa terrasse à parasols | 17 × 13 |
-| Café | Restauration | Une petite buvette fumante | 11 × 10 |
-| Sommet | Nature | Une croix sur les rochers | 11 × 10 |
-| Point de vue | Nature | Une longue-vue sur un ponton de bois | 9 × 9 |
-| Luge | Activités | Une luge et son passager | 11 × 7 |
-| Snowpark | Activités | Un tremplin et une barre de slide | 17 × 7 |
-| Parapente | Activités | Une manche à air ; le jour, des voiles survolent le domaine avec leur ombre | 7 × 12 |
-| Chiens de traîneau | Activités | Un attelage de trois chiens et son musher | 21 × 6 |
-| Patinoire | Activités | Une patinoire bordée de bois | 19 × 11 |
-| Raquettes | Activités | Un panneau et des traces dans la neige | 7 × 7 |
+| Station | Station | Un immeuble en béton, un immeuble en bois et trois chalets serrés, fenêtres allumées | 56 × 42 |
+| Intersection | — | Un rond damé cerclé d'encre et un poteau à plaques aux couleurs des pistes qui en partent | 21 × 19 |
+| Restaurant d'altitude | Restauration | Un grand chalet et sa terrasse à parasols | 25 × 19 |
+| Café | Restauration | Une buvette fumante à l'auvent rayé | 13 × 15 |
+| Sommet | Nature | Une croix sur les rochers | 17 × 13 |
+| Point de vue | Nature | Une longue-vue sur un ponton de bois | 13 × 12 |
+| Luge | Activités | Une luge et son passager | 17 × 10 |
+| Snowpark | Activités | Un tremplin et une barre de slide | 25 × 10 |
+| Parapente | Activités | Une manche à air ; le jour, des voiles survolent le domaine avec leur ombre | 11 × 18 |
+| Chiens de traîneau | Activités | Un attelage de trois chiens et son musher | 32 × 9 |
+| Patinoire | Activités | Une patinoire bordée de bois | 27 × 16 |
+| Raquettes | Activités | Un panneau et des traces dans la neige | 11 × 11 |
 
-Plateformes : 56 × 18 pour une station, 26 × 10 pour un lieu.
+Plateformes : 80 × 26 pour une station, 38 × 14 pour un lieu, 20 × 10 pour une
+intersection.
 
 ## Les remontées
 
 ![Planches du téléski, du télésiège et de la télécabine](charte/remontees.png)
 
 Une remontée part d'un nœud et arrive à un autre. Sa machinerie est une petite
-**gare grise** (7 × 6) collée à la plateforme, de part et d'autre. Le pylône
+**gare grise** (11 × 9) collée à la plateforme, de part et d'autre. Le pylône
 suffit à reconnaître le type, même quand aucun véhicule ne passe.
 
 | | Téléski (tire-fesses) | Télésiège | Télécabine |
 |---|---|---|---|
-| Pylône | 3 × 12, petite traverse | 9 × 16, large traverse | 9 × 20, en treillis |
+| Pylône | 5 × 18, petite traverse | 13 × 24, large traverse | 13 × 30, en treillis |
 | Câbles | un | deux : montée et descente | deux : montée et descente |
-| Véhicule | perche, skieur debout au sol | siège deux places couleur encre | cabine jaune à fenêtre, 5 × 6 |
+| Véhicule | perche, skieur debout au sol | siège deux places couleur encre, 7 × 6 | cabine jaune à fenêtre, 7 × 9 |
 | Au sol | une trace damée sous la ligne | rien | rien |
 
 ## Le jour et la nuit
@@ -92,8 +101,8 @@ Le jeu se joue en deux phases, et le dessin les distingue sans rien redessiner.
   chargée, des cœurs montent au-dessus des lieux qui plaisent. L'interface
   affiche la satisfaction, la popularité et la caisse.
 - **La nuit**, on regarde les coûts : les remontées s'arrêtent, les dameuses
-  passent phares allumés, les pentes à risque d'avalanche sont hachurées
-  d'orange, une remontée à réviser porte la pastille d'entretien. L'interface
+  passent phares allumés, les pentes les plus raides (60 % et plus) sont
+  hachurées d'orange pour le risque d'avalanche, une remontée à réviser porte la pastille d'entretien. L'interface
   affiche les dameuses, le risque, l'entretien et la caisse.
 
 La nuit ne change pas les dessins, elle change la palette : **chaque couleur a
@@ -106,9 +115,9 @@ et l'orange des alertes gardent leur éclat.
 |---|---|---|
 | Bouchon | jour | file de skieurs au pied de la remontée ; pastille orange qui clignote au-delà de dix |
 | Skieur content | jour | cœur framboise de 7 × 6 qui monte au-dessus d'un nœud |
-| Risque d'avalanche | nuit | hachures orange sur la pente ; pastille orange qui clignote |
+| Risque d'avalanche | nuit | hachures orange sur les pentes de 60 % et plus ; pastille orange qui clignote |
 | Entretien | nuit | pastille orange à clé, qui clignote près de la remontée |
-| Dameuse | nuit | engin de 9 × 6, phares en cône tramé devant lui |
+| Dameuse | nuit | engin de 13 × 9, phares en cône tramé devant lui |
 | Pas encore relié | toujours | pointillés qui tournent autour de la plateforme |
 
 ## La palette
@@ -184,20 +193,21 @@ avec la carte.
 
 ## Les tailles
 
-Une case fait 16 × 16 pixels. L'écran agrandit toujours par un nombre entier
-(×2, ×3), jamais avec du lissage. L'ancre de chaque dessin est son pixel du
+Une case fait 24 × 24 pixels. L'écran agrandit toujours par un nombre entier
+de pixels de l'écran par pixel du jeu, jamais avec du lissage : ×2 sur un
+écran de 1 920 px, ×3 sur un écran Retina de la même largeur. L'ancre de chaque dessin est son pixel du
 bas, au milieu : c'est le point où l'objet touche la neige.
 
 | Dessin | Taille (px) |
 |---|---|
-| Skieur | 5 × 7 |
-| Sapins | 7 × 11 et 5 × 8, mêlés |
-| Chalet | 11 × 10 |
-| Immeuble béton / bois | 9 × 20 / 9 × 15 |
-| Gare de remontée | 7 × 6 |
-| Dameuse | 9 × 6 |
-| Parapente en vol | 13 × 9 |
-| Cœur | 7 × 6 |
+| Skieur (bonnet, masque, bâtons) | 7 × 10 |
+| Sapins | 11 × 16 et 7 × 11, mêlés |
+| Chalet | 15 × 14 |
+| Immeuble béton / bois | 13 × 30 / 13 × 21 |
+| Gare de remontée | 11 × 9 |
+| Dameuse | 13 × 9 |
+| Parapente en vol | 19 × 13 |
+| Cœur | 9 × 8 |
 | Pictogramme | 11 × 11 |
 | Pictogramme de piste | 7 × 7 |
 
@@ -206,10 +216,25 @@ Les nœuds et les pylônes sont dans leurs tableaux plus haut.
 ## Les pistes
 
 Les couleurs suivent la norme française : verte (très facile), bleue
-(facile), rouge (difficile), noire (très difficile). Une piste est une bande
-de neige damée de 7 px bordée de sa couleur. Pour les joueurs daltoniens,
-chaque couleur a aussi son pictogramme de 7 × 7 : rond (verte), carré
-(bleue), triangle (rouge), losange (noire).
+(facile), rouge (difficile), noire (très difficile). Un tronçon de piste est
+une bande de neige damée de 10 px bordée de 2 px de sa couleur. Pour les
+joueurs daltoniens, chaque couleur a aussi son pictogramme de 7 × 7 : rond
+(verte), carré (bleue), triangle (rouge), losange (noire).
+
+La couleur d'un tronçon n'est pas choisie : elle vient de son passage le plus
+raide, mesuré sur une fenêtre glissante de 144 m, et vaut pour tout le
+tronçon, jusqu'à la prochaine intersection.
+
+| Pente la plus forte du tronçon | Couleur |
+|---|---|
+| moins de 25 % | verte |
+| de 25 à 40 % | bleue |
+| de 40 à 60 % | rouge |
+| 60 % et plus | noire |
+
+Sur la carte d'essai, à 6 m par pixel : le couloir sous le sommet (65 %) est
+noir, la descente du sommet au point de vue (59 %) rouge, quatre tronçons
+bleus et quatre verts.
 
 ## Les règles de dessin
 
