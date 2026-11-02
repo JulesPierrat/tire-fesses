@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Tire-Fesses, un jeu en pixel art : reliez les stations d'un domaine skiable par des pistes et des remontées.">
+<link rel="icon" href="data:,">
+<title>Tire-Fesses</title>
+</head>
+<body>
+<main id="jeu">
+  <canvas id="ecran" role="img" aria-label="La carte : la neige, la grille des cases et les 32 couleurs de la palette"></canvas>
+  <div id="interface">
+    <header class="bandeau">
+      <h1>Tire-Fesses</h1>
+      <p>Étape 0, le squelette · agrandi <span id="agrandi">×1</span></p>
+      <div class="boutons">
+        <button type="button" class="bouton" data-phase="jour" aria-pressed="true">Jour</button>
+        <button type="button" class="bouton" data-phase="nuit" aria-pressed="false">Nuit</button>
+      </div>
+    </header>
+  </div>
+</main>
+<div id="tourne"><p>Tournez votre téléphone pour jouer.</p></div>
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>

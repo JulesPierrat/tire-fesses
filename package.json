@@ -1,0 +1,28 @@
+{
+  "name": "tire-fesses",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Un jeu web en pixel art de nœuds, de flux et d'organisation autour d'un domaine skiable.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5173 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 4173 --strictPort",
+    "check": "tsc --noEmit && vitest run",
+    "e2e": "playwright test"
+  },
+  "dependencies": {
+    "@fontsource/pixelify-sans": "^5.3.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.58.2",
+    "@types/node": "^24.19.2",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5",
+    "vitest": "^5.1.0"
+  }
+}

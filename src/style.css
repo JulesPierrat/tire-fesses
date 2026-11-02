@@ -1,0 +1,77 @@
+/* Les couleurs (--neige-0, --encre…) sont posées par main.ts, selon la phase. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--encre, #1c2440);
+}
+
+body {
+  font-family: "Pixelify Sans", ui-monospace, monospace;
+  font-size: 16px;
+  line-height: 1.25;
+  font-variant-numeric: tabular-nums;
+  color: var(--encre);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* La toile couvre toute la fenêtre ; main.ts y pose la carte agrandie, sur un pixel entier. */
+#ecran { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+
+/* L'interface est posée sur la carte, à la taille de l'écran : elle n'est pas agrandie. */
+#interface { position: absolute; pointer-events: none; overflow: hidden; }
+
+.bandeau {
+  pointer-events: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  width: max-content;
+  max-width: calc(100% - 16px);
+  margin: 8px;
+  padding: 6px 10px;
+  background: var(--neige-0);
+  border: 2px solid var(--encre);
+  box-shadow: 2px 2px 0 var(--encre);
+}
+
+h1 { margin: 0; font-size: 24px; font-weight: 700; }
+
+.bandeau p { margin: 0; }
+
+.boutons { display: flex; gap: 8px; }
+
+.bouton {
+  font: inherit;
+  color: var(--encre);
+  background: var(--neige-0);
+  border: 2px solid var(--encre);
+  padding: 4px 9px;
+  box-shadow: 2px 2px 0 var(--encre);
+  cursor: pointer;
+}
+.bouton[aria-pressed="true"] { background: var(--lumiere); }
+.bouton:active { transform: translate(2px, 2px); box-shadow: none; }
+.bouton:focus-visible { outline: 2px dashed var(--encre); outline-offset: 2px; }
+
+/* Téléphone tenu debout : une case ferait 8 points, trop petit pour le doigt. */
+#tourne {
+  display: none;
+  position: fixed;
+  inset: 0;
+  place-items: center;
+  padding: 16px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--neige-0, #ffffff);
+}
+
+@media (pointer: coarse) and (orientation: portrait) and (max-width: 599px) {
+  #jeu { display: none; }
+  #tourne { display: grid; }
+}
