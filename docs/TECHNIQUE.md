@@ -13,7 +13,7 @@ Ce document dit comment le jeu est fabriqué. Il complète la
 | Langage | **TypeScript** | Du JavaScript qui vérifie les erreurs avant de lancer le jeu, utile dès que le graphe et les skieurs grossissent. |
 | Outils | **Vite** (serveur local, fabrication), **Vitest** (tests de la logique), **Playwright** (tests dans un vrai navigateur, captures) | Simples, rapides, faits pour le web. |
 | Machine | **Tout tourne dans Docker**, avec l'image `mcr.microsoft.com/playwright:v1.58.2-noble` (Node 24) | Pas de node sur la machine de développement ; une seule image pour tout. |
-| Mise en ligne | **GitHub Pages**, à chaque fusion sur `main` ; **itch.io** plus tard, quand une carte sera jouable | Gratuit, le dépôt est déjà public, rien à faire à la main. |
+| Mise en ligne | **Vercel**, branché sur le dépôt GitHub : `main` en ligne à chaque fusion, un lien d'essai pour chaque PR ; **itch.io** plus tard, quand une carte sera jouable | Gratuit pour un projet non commercial, rien à faire à la main, et chaque étape s'essaie sur téléphone avant d'être fusionnée. |
 | Téléphone | **Couché seulement** ; tenu debout, il affiche « Tournez votre téléphone pour jouer. » | Debout, une case ne ferait que 8 points : trop petit pour le doigt. |
 | Sauvegarde | **Dans le navigateur** (`localStorage`) | Pas de serveur, pas de compte. |
 | Police | **Pixelify Sans livrée avec le jeu** (paquet `@fontsource/pixelify-sans`) | Le jeu marche hors ligne et sur itch.io, sans appel à Google Fonts. |
@@ -131,12 +131,19 @@ Tout passe par le script `./outils`, qui lance Docker :
 
 ## Mise en ligne et vérifications automatiques
 
-- Sur chaque pull request, GitHub vérifie les types, lance tous les tests et
-  fabrique le jeu. Une PR qui ne passe pas ne se fusionne pas.
-- Sur `main`, il fait la même chose puis met le jeu en ligne sur
-  https://julespierrat.github.io/tire-fesses/.
-- Les chemins du jeu sont relatifs (`./`). Le même dossier `dist/` marchera
-  donc tel quel sur itch.io.
+- **GitHub vérifie chaque pull request** : les types, tous les tests (dans
+  un vrai navigateur aussi) et la fabrication du jeu. Une PR qui ne passe pas
+  ne se fusionne pas.
+- **Vercel met le jeu en ligne.** Il est branché sur le dépôt GitHub et
+  reconnaît Vite tout seul : il lance `npm run build` et sert `dist/`.
+  - Chaque PR reçoit un **lien d'essai**, mis à jour à chaque push.
+  - Chaque fusion sur `main` met à jour **le jeu en ligne**, à une adresse du
+    type `tire-fesses.vercel.app`.
+- **L'offre gratuite de Vercel (Hobby) est réservée aux projets non
+  commerciaux.** Si le jeu rapporte un jour de l'argent, il faudra l'offre
+  payante ou un autre hébergeur.
+- Les chemins du jeu sont relatifs (`./`). Le même dossier `dist/` marche donc
+  tel quel partout : Vercel, itch.io ou un autre hébergeur.
 
 ## L'ordre de travail
 
