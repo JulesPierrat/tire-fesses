@@ -1,6 +1,7 @@
 /* L'écran : la carte agrandie d'un nombre entier, compté en vrais pixels de l'écran. */
 
-import { HAUTEUR, LARGEUR } from '../dessin/pixels';
+import type { Point } from '../logique/geometrie';
+import { HAUTEUR, LARGEUR } from '../logique/reglages';
 
 /** Le plus grand agrandissement entier qui fait tenir la carte dans la fenêtre, et au moins 1. */
 export function echelle(largeurVraie: number, hauteurVraie: number): number {
@@ -28,6 +29,12 @@ export function cadrer(largeurVraie: number, hauteurVraie: number): Cadre {
   };
 }
 
+/** Le pixel du jeu sous un point de la page (en points CSS, comme les événements du pointeur). */
+export function versJeu(toile: HTMLCanvasElement, c: Cadre, clientX: number, clientY: number): Point {
+  const r = toile.getBoundingClientRect(), vrais = toile.width / r.width;
+  return [((clientX - r.left) * vrais - c.x) / c.echelle, ((clientY - r.top) * vrais - c.y) / c.echelle];
+}
+
 /**
  * La toile couvre toute la fenêtre et compte en vrais pixels : c'est nous qui posons la
  * carte agrandie sur un pixel entier. Placer la toile elle-même en CSS ne suffit pas :
@@ -36,27 +43,20 @@ export function cadrer(largeurVraie: number, hauteurVraie: number): Cadre {
  * Appelle `quandCadre` à chaque changement de taille ou d'écran, une fois la toile
  * redimensionnée : il faut alors la redessiner.
  */
-export function suivreEcran(toile: HTMLCanvasElement, surCarte: HTMLElement, quandCadre: (c: Cadre) => void): void {
-  const poser = (largeurVraie: number, hauteurVraie: number) => {
-    toile.width = largeurVraie;
-    toile.height = hauteurVraie;
-    const c = cadrer(largeurVraie, hauteurVraie);
-    const vrais = largeurVraie / toile.clientWidth;
-    surCarte.style.left = `${c.x / vrais}px`;
-    surCarte.style.top = `${c.y / vrais}px`;
-    surCarte.style.width = `${c.largeur / vrais}px`;
-    surCarte.style.height = `${c.hauteur / vrais}px`;
-    quandCadre(c);
-  };
-
+export function suivreEcran(toile: HTMLCanvasElement, quandCadre: (c: Cadre) => void): void {
   new ResizeObserver(([entree]) => {
     const dpr = window.devicePixelRatio || 1;
-    const l = Math.round(entree!.contentRect.width * dpr), h = Math.round(entree!.contentRect.height * dpr);
+    const l = Math.round(entree.contentRect.width * dpr), h = Math.round(entree.contentRect.height * dpr);
     // La taille exacte en vrais pixels, quand le navigateur la donne (pas Safari). Les écrans
     // simulés (outils de développement, Playwright) la donnent sans devicePixelRatio : on ne
     // la croit que si elle tombe à un pixel près de notre calcul.
-    const vraie = entree!.devicePixelContentBoxSize?.[0];
+    const vraie = entree.devicePixelContentBoxSize?.[0];
     const juste = vraie && Math.abs(vraie.inlineSize - l) <= 1 && Math.abs(vraie.blockSize - h) <= 1;
-    poser(juste ? vraie.inlineSize : l, juste ? vraie.blockSize : h);
+    toile.width = juste ? vraie.inlineSize : l;
+    toile.height = juste ? vraie.blockSize : h;
+    const c = cadrer(toile.width, toile.height);
+    // Pour les tests : où la carte est posée, en vrais pixels.
+    Object.assign(toile.dataset, { echelle: c.echelle, x: c.x, y: c.y });
+    quandCadre(c);
   }).observe(toile, { box: 'device-pixel-content-box' });
 }

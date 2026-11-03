@@ -119,6 +119,9 @@ et l'orange des alertes gardent leur éclat.
 | Entretien | nuit | pastille orange à clé, qui clignote près de la remontée |
 | Dameuse | nuit | engin de 13 × 9, phares en cône tramé devant lui |
 | Pas encore relié | toujours | pointillés qui tournent autour de la plateforme |
+| Emplacement libre | toujours | plateforme vide entre deux piquets de bois |
+| Tracé en cours | toujours | trait de 3 px à la couleur que prendra la piste ; orange s'il remonte de plus de 10 m |
+| Choisi | toujours | anneau plein jaune autour du nœud d'où part une remontée, couleur lumière autour d'un emplacement ; la piste ou le câble choisi clignote en lumière |
 
 ## La palette
 
